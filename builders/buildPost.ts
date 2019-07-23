@@ -11,7 +11,8 @@ export default buildPost;
 
 const buildMessage = ($: CheerioSelector) => {
   const userContent = $('.userContent');
-  let message = userContent.html() || '';
+
+  let message = $('p', userContent).html() || '';
 
   const textExposedRootPargaraph = $('.text_exposed_root > p');
   if (textExposedRootPargaraph.length) {
