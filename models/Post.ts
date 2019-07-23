@@ -1,5 +1,3 @@
-import moment from "moment";
-
 type PostInput = {
   message: string;
   timestamp: number;
@@ -23,10 +21,6 @@ class Post {
 
   get images(): string[] {
     return this.input.images;
-  }
-
-  getFormattedDate() {
-    return moment.unix(this.timestamp).format("LLL");
   }
 }
 

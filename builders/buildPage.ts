@@ -30,7 +30,7 @@ const buildAvatar = ($: CheerioSelector) => {
 
   if (!avatar) {
     const ai = $('a[rel="theater"] img');
-    avatar = ai && ai.first().attr("src");
+    avatar = ai && ai.attr("src");
   }
 
   return avatar;
