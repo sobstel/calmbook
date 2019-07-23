@@ -21,7 +21,7 @@ const buildContent = (
     message = `<p>${textExposedRootPargaraph.html()}</p>${textExposedShow}`;
   }
 
-  const imgNodes = userContent.next().find("img.scaledImageFitWidth");
+  const imgNodes = userContent.next().find("img.img");
   const images =
     imgNodes && imgNodes.toArray().map(element => element.attribs["src"]);
 
