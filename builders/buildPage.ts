@@ -25,12 +25,10 @@ const buildName = ($: CheerioSelector) => {
 };
 
 const buildAvatar = ($: CheerioSelector) => {
-  const ogi = $('meta[property="og:image"]');
-  let avatar = ogi && ogi.attr("content");
+  let avatar = $('meta[property="og:image"]').attr("content");
 
   if (!avatar) {
-    const ai = $('a[rel="theater"] img');
-    avatar = ai && ai.attr("src");
+    avatar = $('a[rel="theater"] img').attr("src");
   }
 
   return avatar;
