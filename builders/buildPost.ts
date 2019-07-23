@@ -13,7 +13,7 @@ const buildContent = (
   $: CheerioSelector
 ): { message: string; images: string[] } => {
   const userContent = $(".userContent");
-  let message = userContent.html() || "";
+  let message = $("p", userContent).html() || "";
 
   const textExposedRootPargaraph = $(".text_exposed_root > p");
   if (textExposedRootPargaraph.length) {
