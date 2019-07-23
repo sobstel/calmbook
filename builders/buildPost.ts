@@ -1,7 +1,7 @@
 import Post from "../models/Post";
 
 const buildPost = ($: CheerioSelector) => {
-  const timestamp = parseInt($('abbr[data-utime]').attr('data-utime'));
+  const timestamp = parseInt($('abbr[data-utime]').attr('data-utime')) * 1000;
   const message = buildMessage($);
 
   return new Post({ timestamp, message });

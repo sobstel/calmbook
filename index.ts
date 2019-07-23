@@ -3,6 +3,7 @@ import axios from "axios";
 import { setupCache } from 'axios-cache-adapter'
 import cheerio from "cheerio";
 import pug from "pug";
+import moment from "moment";
 import buildPage from "./builders/buildPage";
 
 const cache = setupCache({ maxAge: 5 * 60 * 1000 });
@@ -18,7 +19,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     const $ = cheerio.load(response.data);
     const page = buildPage($);
 
-    const output = pug.renderFile(`${__dirname}/views/index.${format}.pug`, { url, page });
+    const output = pug.renderFile(`${__dirname}/views/index.${format}.pug`, { url, page, moment });
 
     if (format === 'xml') {
       res.setHeader('Content-Type', 'application/atom+xml');
