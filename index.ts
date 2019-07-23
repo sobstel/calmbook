@@ -11,14 +11,18 @@ const cachedAxios = axios.create({ adapter: cache.adapter });
 
 export default async (req: NowRequest, res: NowResponse) => {
   try {
+    const format = req.url && req.url.substr(req.url.length - 3) === 'xml' ? 'xml' : 'html';
     const url = sanitizeUrl(req.url);
     const response = await cachedAxios.get(`https://www.facebook.com/pg/${url}/posts`);
 
     const $ = cheerio.load(response.data);
     const page = buildPage($);
 
-    // // TODO: determine format (html or atom) and redirect to proper template
-    const output = pug.renderFile(`${__dirname}/views/index.html.pug`, { url, page });
+    const output = pug.renderFile(`${__dirname}/views/index.${format}.pug`, { url, page });
+
+    if (format === 'xml') {
+      res.setHeader('Content-Type', 'application/atom+xml');
+    }
 
     res.status(200).send(output);
   } catch (error) {
@@ -31,8 +35,9 @@ const sanitizeUrl = (url: string | undefined) => {
 
   let sanitizedUrl = url;
   sanitizedUrl = sanitizedUrl.trim();
-  sanitizedUrl = sanitizedUrl.replace(/\/+$/g, '');
-  sanitizedUrl = sanitizedUrl.replace(/^\/+/g, '');
+  sanitizedUrl = sanitizedUrl.replace(/\/+$/g, ''); // trailing slashes
+  sanitizedUrl = sanitizedUrl.replace(/^\/+/g, ''); // leading slashes
+  sanitizedUrl = sanitizedUrl.replace(/\.\w{3}$/, ''); // extension (format)
 
   return sanitizedUrl;
 }

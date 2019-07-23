@@ -1,0 +1,11 @@
+doctype xml
+feed(xmlns='http://www.w3.org/2005/Atom')
+  link(href='https://calmbook.net/'+url, rel='self')
+  updated= page.posts[0].timestamp
+  title #{page.name} | Calmbook
+  generator Calmbook
+  each post in page.posts
+    entry
+      title= post.message.substr(0, 50)
+      content!= post.message
+      updated= post.timestamp
