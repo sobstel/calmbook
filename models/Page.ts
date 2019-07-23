@@ -1,15 +1,20 @@
-import Post from './Post';
+import Post from "./Post";
 
 type PageInput = {
-  name: string,
-  posts: Array<Post>,
-}
+  name: string;
+  avatar: string;
+  posts: Post[];
+};
 
 class Page {
   input: PageInput;
 
   constructor(input: PageInput) {
     this.input = input;
+  }
+
+  get avatar() {
+    return this.input.avatar;
   }
 
   get name() {

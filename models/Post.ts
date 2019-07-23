@@ -1,7 +1,8 @@
 type PostInput = {
-  message: string,
-  timestamp: number,
-}
+  message: string;
+  timestamp: number;
+  images: string[];
+};
 
 class Post {
   input: PostInput;
@@ -16,6 +17,10 @@ class Post {
 
   get timestamp(): number {
     return this.input.timestamp;
+  }
+
+  get images(): string[] {
+    return this.input.images;
   }
 }
 

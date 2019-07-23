@@ -1,24 +1,29 @@
 import Post from "../models/Post";
 
 const buildPost = ($: CheerioSelector) => {
-  const timestamp = parseInt($('abbr[data-utime]').attr('data-utime')) * 1000;
-  const message = buildMessage($);
+  const timestamp = parseInt($("abbr[data-utime]").attr("data-utime")) * 1000;
+  const { message, images = [] } = buildContent($);
 
-  return new Post({ timestamp, message });
-}
+  return new Post({ timestamp, message, images });
+};
 
 export default buildPost;
 
-const buildMessage = ($: CheerioSelector) => {
-  const userContent = $('.userContent');
+const buildContent = (
+  $: CheerioSelector
+): { message: string; images: string[] } => {
+  const userContent = $(".userContent");
+  let message = $("p", userContent).html() || "";
 
-  let message = $('p', userContent).html() || '';
-
-  const textExposedRootPargaraph = $('.text_exposed_root > p');
+  const textExposedRootPargaraph = $(".text_exposed_root > p");
   if (textExposedRootPargaraph.length) {
-    const textExposedShow = $('div.text_exposed_show').html() || '';
+    const textExposedShow = $("div.text_exposed_show").html() || "";
     message = `<p>${textExposedRootPargaraph.html()}</p>${textExposedShow}`;
   }
 
-  return message;
-}
+  const imgNodes = userContent.next().find("img.img");
+  const images =
+    imgNodes && imgNodes.toArray().map(element => element.attribs["src"]);
+
+  return { message, images };
+};
