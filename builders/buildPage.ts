@@ -1,13 +1,13 @@
 import cheerio from "cheerio";
-import Page from "../models/Page";
+import { Page } from "../models";
 import buildPosts from "../builders/buildPosts";
 
-const buildPage = ($: CheerioSelector) => {
+const buildPage = ($: CheerioSelector): Page => {
   const avatar = buildAvatar($);
   const name = buildName($);
   const posts = buildPosts($);
 
-  return new Page({ name, posts, avatar });
+  return { name, posts, avatar };
 };
 
 export default buildPage;

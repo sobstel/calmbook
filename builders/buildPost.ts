@@ -1,10 +1,10 @@
-import Post from "../models/Post";
+import { Post } from "../models";
 
-const buildPost = ($: CheerioSelector) => {
+const buildPost = ($: CheerioSelector): Post => {
   const timestamp = parseInt($("abbr[data-utime]").attr("data-utime")) * 1000;
   const { message, images = [] } = buildContent($);
 
-  return new Post({ timestamp, message, images });
+  return { timestamp, message, images };
 };
 
 export default buildPost;
