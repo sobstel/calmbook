@@ -1,17 +1,24 @@
 import cheerio from "cheerio";
 import Page from "../models/Page";
-import Post from "../models/Post";
-import buildPost from "../builders/buildPost";
+import buildPosts from "../builders/buildPosts";
 
 const buildPage = ($: CheerioSelector) => {
-  const posts: Array<Post> = [];
+  const name = buildName($);
+  const posts = buildPosts($);
 
-  $('.userContentWrapper').each((_, element) => {
-    const post = buildPost(cheerio.load(element));
-    posts.push(post);
-  });
-
-  return new Page({ posts });
+  return new Page({ name, posts });
 }
 
 export default buildPage;
+
+const buildName = ($: CheerioSelector) => {
+  const title = $('title').text();
+  let name = title;
+
+  const lastDashIndex = title.lastIndexOf('-');
+  if (lastDashIndex !== -1) {
+    name = title.substring(0, lastDashIndex - 1);
+  }
+
+  return name;
+}

@@ -1,4 +1,6 @@
 type PostInput = {
+  message: string,
+  timestamp: number,
 }
 
 class Post {
@@ -9,7 +11,11 @@ class Post {
   }
 
   get message(): string {
-    return '';
+    return this.input.message;
+  }
+
+  get timestamp(): number {
+    return this.input.timestamp;
   }
 }
 

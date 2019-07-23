@@ -1,6 +1,7 @@
 import Post from './Post';
 
 type PageInput = {
+  name: string,
   posts: Array<Post>,
 }
 
@@ -11,7 +12,11 @@ class Page {
     this.input = input;
   }
 
-  get posts(): Array<Post> {
+  get name() {
+    return this.input.name;
+  }
+
+  get posts() {
     return this.input.posts;
   }
 }
