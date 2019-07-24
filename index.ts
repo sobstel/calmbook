@@ -14,12 +14,16 @@ export default async (req: NowRequest, res: NowResponse) => {
   try {
     const format = req.url && req.url.substr(req.url.length - 3) === 'xml' ? 'xml' : 'html';
     const url = sanitizeUrl(req.url);
+    if (url.length === 0) {
+      throw new Error('provide page path in url, eg. https://calmbook.net/TurismoArgentina');
+    }
+
     const response = await cachedAxios.get(`https://www.facebook.com/pg/${url}/posts`);
 
     const $ = cheerio.load(response.data);
     const page = buildPage($);
 
-    const output = pug.renderFile(`${__dirname}/views/index.${format}.pug`, { url, page, moment });
+    const output = pug.renderFile(`${__dirname}/views/page.${format}.pug`, { url, page, moment });
 
     if (format === 'xml') {
       res.setHeader('Content-Type', 'application/atom+xml');
@@ -27,12 +31,12 @@ export default async (req: NowRequest, res: NowResponse) => {
 
     res.status(200).send(output);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(`<center>${error.message}</center>`);
   }
 };
 
-const sanitizeUrl = (url: string | undefined) => {
-  if (!url) return url;
+const sanitizeUrl = (url: string | undefined): string => {
+  if (!url) return '';
 
   let sanitizedUrl = url;
   sanitizedUrl = sanitizedUrl.trim();
