@@ -3,8 +3,9 @@ import { Post } from "../models";
 const buildPost = ($: CheerioSelector): Post => {
   const timestamp = parseInt($("abbr[data-utime]").attr("data-utime")) * 1000;
   const { message, images = [] } = buildContent($);
+  const title = message.replace(/<[^>]+>/g, "").split(" ").slice(0, 8).join(" ") + "..."
 
-  return { timestamp, message, images };
+  return { title, timestamp, message, images };
 };
 
 export default buildPost;

@@ -1,11 +1,12 @@
 export interface Post {
+  images: string[];
   message: string;
   timestamp: number;
-  images: string[];
+  title: string;
 }
 
 export interface Page {
-  name: string;
   avatar: string;
+  name: string;
   posts: Post[];
 }

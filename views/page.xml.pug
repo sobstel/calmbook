@@ -6,6 +6,6 @@ feed(xmlns='http://www.w3.org/2005/Atom')
   generator Calmbook
   each post in page.posts
     entry
-      title= post.message.substr(0, 50)
+      title= post.title
       content!= post.message
       updated= moment(post.timestamp).format("YYYY-MM-DDTHH:mm:ssZ")
