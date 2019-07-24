@@ -1,4 +1,5 @@
 export interface Post {
+  id: string;
   images: string[];
   message: string;
   timestamp: number;
@@ -7,6 +8,7 @@ export interface Post {
 
 export interface Page {
   avatar: string;
+  username: string;
   name: string;
   posts: Post[];
 }
