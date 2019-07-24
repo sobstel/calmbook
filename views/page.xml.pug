@@ -1,6 +1,6 @@
 doctype xml
 feed(xmlns='http://www.w3.org/2005/Atom')
-  link(href='https://calmbook.net/'+url+'.xml', rel='self')
+  link(href='https://calmbook.page/'+url+'.xml', rel='self')
   updated= moment(page.posts[0].timestamp).format("YYYY-MM-DDTHH:mm:ssZ")
   title #{page.name} | Calmbook
   icon!= page.avatar

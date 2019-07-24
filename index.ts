@@ -15,7 +15,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     const format = req.url && req.url.substr(req.url.length - 3) === 'xml' ? 'xml' : 'html';
     const url = sanitizeUrl(req.url);
     if (url.length === 0) {
-      throw new Error('provide page path in url, eg. https://calmbook.net/TurismoArgentina');
+      throw new Error('provide page path in url, eg. https://calmbook.page/TurismoArgentina');
     }
 
     const response = await cachedAxios.get(`https://www.facebook.com/pg/${url}/posts`);
