@@ -5,7 +5,7 @@ html
     title #{page.name} | calmbook
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="//unpkg.com/tailwindcss@1.0.5/dist/tailwind.min.css")
-    link(href="/"+url+".xml" type="application/atom+xml" rel="alternate" title=page.name)
+    link(href="/"+page.username+".xml" type="application/atom+xml" rel="alternate" title=page.name)
   body(class="bg-gray-100")
     div(class="container max-w-lg mx-auto my-4")
       img(class="w-10 h-10 rounded-full m-auto" src=page.avatar alt=page.name)
@@ -16,7 +16,8 @@ html
             img(class="w-10 h-10 rounded-full mr-4" src=page.avatar alt="")
             div(class="text-sm")
               p(class="text-gray-900 leading-none font-bold") #{page.name}
-              p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
+              a(href=`${page.username}@${post.id}`)
+                p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
           div(class="my-6") !{post.message}
           each image in post.images
             img(class="max-w-full h-auto inline-block" src=image alt="")

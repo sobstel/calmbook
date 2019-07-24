@@ -2,7 +2,7 @@ import cheerio from "cheerio";
 import { Page } from "../models";
 import buildPosts from "../builders/buildPosts";
 
-const buildPage = ($: CheerioSelector): Page => {
+const buildPage = ($: CheerioSelector): Omit<Page, "username"> => {
   const avatar = buildAvatar($);
   const name = buildName($);
   const posts = buildPosts($);
@@ -13,12 +13,16 @@ const buildPage = ($: CheerioSelector): Page => {
 export default buildPage;
 
 const buildName = ($: CheerioSelector) => {
-  const title = $("title").text();
-  let name = title;
+  let name = $('meta[property="og:title"]').attr("content");
 
-  const lastDashIndex = title.lastIndexOf("-");
-  if (lastDashIndex !== -1) {
-    name = title.substring(0, lastDashIndex - 1);
+  if (!name) {
+    let title = $("title").text();
+
+    const lastDashIndex = title.lastIndexOf("-");
+    if (lastDashIndex !== -1) {
+      title = title.substring(0, lastDashIndex - 1);
+    }
+    name = title;
   }
 
   return name;
