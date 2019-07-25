@@ -24,13 +24,13 @@ const buildPost = async ($: CheerioSelector): Promise<Post> => {
 
   const { message, images = [] } = buildContent($);
 
+  // Fetch video poster
   let poster = undefined;
   if (type === "videos") {
     poster = $("video")
       .parent()
       .find("img")
       .attr("src");
-    console.log(poster);
   }
   const title =
     message

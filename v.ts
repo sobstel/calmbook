@@ -7,6 +7,5 @@ export default async (req: NowRequest, res: NowResponse) => {
   const r = await a.get(
     `https://facebook.com/plugins/video/oembed.json/?url=https://facebook.com${link}`
   );
-  console.log(r.data);
   res.json(r.data);
 };
