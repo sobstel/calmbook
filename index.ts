@@ -36,10 +36,8 @@ export default async (req: NowRequest, res: NowResponse) => {
     const pageInfo = await buildPage($);
     const page: Page = { username: object.username, ...pageInfo };
 
-    const output = pug.renderFile(`${__dirname}/views/page.${format}.pug`, {
-      page,
-      moment
-    });
+    const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);
+    const output = render({ page, moment });
 
     if (format === "xml") {
       res.setHeader("Content-Type", "application/atom+xml");

@@ -41,7 +41,7 @@
       "src": "/.*",
       "dest": "/index.ts",
       "headers": {
-        "Cache-Control": "max-age=300, s-maxage=3600, stale-while-revalidate=3600, stale-if-error=2592000"
+        "Cache-Control": "max-age=300, s-maxage=3600, stale-if-error=2592000"
       }
     }
   ]
