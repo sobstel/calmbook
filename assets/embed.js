@@ -13,16 +13,24 @@ function __embed(img) {
     const cntr = img.parentNode;
     cntr.innerHTML = embedHtml;
 
+    // check if fb exists
+    const FB = window.FB;
+    const hasXFBML = FB && FB.XFBML && typeof FB.XFBML.parse === "function";
+
     // re create script tag (innerHTML will block script from being loaded)
-    var script = cntr.querySelector("script");
-    if (script) {
-      const scriptSrc = script.src; ///src="([^"]+)"/g.exec(data.html)[1];
-      cntr.removeChild(script);
-      const uid = Date.now();
-      script = document.createElement("script");
-      script.id = "" + uid;
-      script.src = scriptSrc + "&__a=" + uid;
-      cntr.appendChild(script);
+    var innerScript = cntr.querySelector("script");
+    if (innerScript) {
+      if (!hasXFBML) {
+        const scriptSrc = innerScript.src; ///src="([^"]+)"/g.exec(data.html)[1];
+        const uid = Date.now();
+        const newScript = document.createElement("script");
+        newScript.id = "" + uid;
+        newScript.src = scriptSrc + "&__a=" + uid;
+        cntr.insertBefore(newScript, innerScript);
+      } else {
+        FB.XFBML.parse(cntr);
+      }
+      cntr.removeChild(innerScript);
     }
   };
 
