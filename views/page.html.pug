@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(charset="utf-8")
-    title #{page.name} | calmbook
+    title #{page.name}
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="//unpkg.com/tailwindcss@1.0.5/dist/tailwind.min.css")
     link(href="/"+page.username+".xml" type="application/atom+xml" rel="alternate" title=page.name)
@@ -11,7 +11,7 @@ html
       img(class="w-10 h-10 rounded-full m-auto" src=page.avatar alt=page.name)
       h1(class="text-3xl font-bold text-center") #{page.name}
       each post in page.posts
-        div(id=page.timestamp class="rounded-lg overflow-hidden shadow-lg my-8 px-6 py-6 bg-white")
+        div(id=page.timestamp class="rounded-lg bg-white shadow-lg my-8 px-6 py-6")
           div(class="flex items-center")
             img(class="w-10 h-10 rounded-full mr-4" src=page.avatar alt="")
             div(class="text-sm")
@@ -20,4 +20,4 @@ html
                 p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
           div(class="my-6") !{post.message}
           each image in post.images
-            img(class="max-w-full h-auto inline-block" src=image alt="")
+            img(class="min-w-full max-w-full h-auto" src=image alt="")
