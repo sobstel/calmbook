@@ -8,7 +8,10 @@ function __embed(img) {
   var req = new XMLHttpRequest();
   req.onload = function() {
     const data = JSON.parse(req.response);
-    const embedHtml = data.html.replace(/(?:defer)="1"/g, "");
+    const embedHtml = data.html;
+    if (!embedHtml) {
+      return;
+    }
 
     const cntr = img.parentNode;
     cntr.innerHTML = embedHtml;
@@ -21,11 +24,10 @@ function __embed(img) {
     var innerScript = cntr.querySelector("script");
     if (innerScript) {
       if (!hasXFBML) {
-        const scriptSrc = innerScript.src; ///src="([^"]+)"/g.exec(data.html)[1];
-        const uid = Date.now();
+        const scriptSrc = innerScript.src;
         const newScript = document.createElement("script");
-        newScript.id = "" + uid;
-        newScript.src = scriptSrc + "&__a=" + uid;
+        newScript.id = "fbsdk_" + Date.now();
+        newScript.src = scriptSrc;
         cntr.insertBefore(newScript, innerScript);
       } else {
         FB.XFBML.parse(cntr);
