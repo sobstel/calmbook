@@ -11,6 +11,10 @@ feed(xmlns='http://www.w3.org/2005/Atom')
       id= post.timestamp
       title= post.title
       updated= moment(post.timestamp).format("YYYY-MM-DDTHH:mm:ssZ")
-      content!= post.message
+      content
+        !=post.message
+        div
+          each image in post.images
+            img(src=image alt="")
       link(href='https://calmbook.page/'+url+'#'+post.timestamp, rel='self')
   generator Calmbook
