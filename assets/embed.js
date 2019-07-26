@@ -4,7 +4,7 @@ function __embed(img) {
     return;
   }
 
-  const url = "/__v?link=" + link;
+  const url = "/video?link=" + link;
   var req = new XMLHttpRequest();
   req.onload = function() {
     const data = JSON.parse(req.response);

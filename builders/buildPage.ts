@@ -2,12 +2,10 @@ import cheerio from "cheerio";
 import { Page } from "../models";
 import buildPosts from "../builders/buildPosts";
 
-const buildPage = async (
-  $: CheerioSelector
-): Promise<Omit<Page, "username">> => {
+const buildPage = ($: CheerioSelector): Omit<Page, "username"> => {
   const avatar = buildAvatar($);
   const name = buildName($);
-  const posts = await buildPosts($);
+  const posts = buildPosts($);
 
   return { name, posts, avatar };
 };

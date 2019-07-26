@@ -33,7 +33,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     );
 
     const $ = cheerio.load(response.data);
-    const pageInfo = await buildPage($);
+    const pageInfo = buildPage($);
     const page: Page = { username: object.username, ...pageInfo };
 
     const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);

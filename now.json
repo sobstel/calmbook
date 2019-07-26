@@ -31,8 +31,8 @@
       }
     },
     {
-      "src": "/__v",
-      "dest": "/v.ts",
+      "src": "/video",
+      "dest": "/video.ts",
       "headers": {
         "Cache-Control": "maxage=2592000, s-max-age=2592000"
       }

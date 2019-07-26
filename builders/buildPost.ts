@@ -15,7 +15,7 @@ const getPostInfo = (link: string): { type?: string; id?: string } => {
   return {};
 };
 
-const buildPost = async ($: CheerioSelector): Promise<Post> => {
+const buildPost = ($: CheerioSelector): Post => {
   const timestamp = parseInt($("abbr[data-utime]").attr("data-utime")) * 1000;
 
   const link = $("div[id^=feed_subtitle] a").attr("href");

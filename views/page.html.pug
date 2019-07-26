@@ -6,6 +6,7 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="//unpkg.com/tailwindcss@1.0.5/dist/tailwind.min.css")
     link(href="/"+page.username+".xml" type="application/atom+xml" rel="alternate" title=page.name)
+    script(src='/embed.js')
   body(class="bg-gray-100")
     div(class="container max-w-lg mx-auto my-4")
       img(class="w-10 h-10 rounded-full m-auto" src=page.avatar alt=page.name)
@@ -26,4 +27,3 @@ html
             if post.poster
                 div(class="v")
                     img(class="max-w-full h-auto inline-block cursor-pointer" data-link=`/${page.username}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)
-                    script(src='/embed.js')
