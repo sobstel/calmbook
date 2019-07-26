@@ -21,8 +21,6 @@ const buildPost = ($: CheerioSelector): Post => {
       .slice(0, 8)
       .join(" ") + "...";
 
-  console.log(link);
-
   return { title, id, timestamp, message, images, link };
 };
 
