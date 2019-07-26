@@ -3,15 +3,15 @@
   "alias": ["calmbook.page"],
   "builds": [
     {
-      "src": "./*.ts",
+      "src": "*.ts",
       "use": "@now/node@canary"
     },
     {
-      "src": "./assets/favicon.ico",
+      "src": "assets/favicon.ico",
       "use": "@now/static"
     },
     {
-      "src": "./assets/embed.js",
+      "src": "assets/embed.js",
       "use": "@now/static"
     }
   ],
