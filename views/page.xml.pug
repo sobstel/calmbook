@@ -1,11 +1,11 @@
 doctype xml
 feed(xmlns='http://www.w3.org/2005/Atom')
-  id https://calmbook.net/#{url}.xml
+  id https://calmbook.net/#{page.username}.xml
   title #{page.name}
   updated= moment(page.posts[0].timestamp).format("YYYY-MM-DDTHH:mm:ssZ")
-  link(href='https://calmbook.page/'+url, rel='self')
-  icon!= page.avatar
-  logo!= page.avatar
+  link(href='https://calmbook.page/'+page.username, rel='self')/
+  icon= page.avatar
+  logo= page.avatar
   each post in page.posts
     entry
       id= post.timestamp
@@ -16,7 +16,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
         div!= post.message
         div
           each image in post.images
-            img(src=image alt="")
+            img(src=image alt="")/
         | ]]>
-      link(href='https://calmbook.page/'+url+'#'+post.timestamp, rel='self')
+      link(href='https://calmbook.page/'+page.username+'#'+post.timestamp, rel='self')
   generator Calmbook
