@@ -2,20 +2,13 @@
 
 > Facebook pages without distractions
 
-Built with
-[TypeScript][typescript] (and [axios][axios], [cheerio][cheerio], [moment][moment], [pug][pug]),
-[Tailwind CSS][tailwind].
+## Dev
 
 Local devlopment: `now dev`
 
-Rules
-
-- One and only one page
-
-Sample pages
-
-- <https://calmbook.page/TurismoArgentina>
-- <http://calmbook.page/gorceultratrail>
+Built with
+[TypeScript][typescript] (and [axios][axios], [cheerio][cheerio], [moment][moment], [pug][pug]),
+[Tailwind CSS][tailwind].
 
 [axios]: //github.com/axios/axios
 [cheerio]: //cheerio.js.org
@@ -23,3 +16,13 @@ Sample pages
 [pug]: //pugjs.org
 [tailwind]: //tailwindcss.com
 [typescript]: //www.typescriptlang.org
+
+## Rules
+
+- One and only one page
+- No distractions like comments, likes, infinity pools, etc
+
+## Sample pages
+
+- <https://calmbook.page/TurismoArgentina>
+- <http://calmbook.page/gorceultratrail>
