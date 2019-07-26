@@ -25,4 +25,4 @@ Built with
 ## Sample pages
 
 - <https://calmbook.page/TurismoArgentina>
-- <http://calmbook.page/gorceultratrail>
+- <https://calmbook.page/gorceultratrail>
