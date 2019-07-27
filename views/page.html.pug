@@ -15,15 +15,20 @@ html
         div(id=page.timestamp class="rounded-lg bg-white shadow-lg my-8 px-6 py-6")
           div(class="flex items-center")
             img(class="w-10 h-10 rounded-full mr-4" src=page.avatar alt="")
-            div(class="text-sm")
+            div(class="text-sm flex-grow")
               p(class="text-gray-900 leading-none font-bold") #{page.name}
-              a(class="float-left" href=`${page.username}@${post.id}`)
-                p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
-              a(class="float-right" href=`https://facebook.com/${page.username}/posts/${post.id}` target="_blank")
-                small() 🔗
+              div(class="clearfix")
+                a(class="float-left" href=`${page.username}@${post.id}`)
+                  p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
+                a(class="float-right" href=`https://facebook.com/${page.username}/posts/${post.id}` target="_blank")
+                  small() 🔗
           div(class="my-6") !{post.message}
           each image in post.images
             img(class="max-w-full h-auto inline-block" src=image alt="")/
             if post.poster
-                div(class="v")
+                div(class="v relative")
                     img(class="max-w-full h-auto inline-block cursor-pointer" data-link=`/${page.username}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)/
+            if post.link
+              a(class="text-gray-600" href=post.link.url target="_blank")
+                blockquote(class="my-1 italic") !{post.link.excerpt}
+                small(class="block whitespace-no-wrap overflow-hidden text-gray-500") !{post.link.url}
