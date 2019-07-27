@@ -21,3 +21,7 @@ html
           div(class="my-6") !{post.message}
           each image in post.images
             img(class="min-w-full max-w-full h-auto" src=image alt="")/
+          if post.link
+            a(class="text-gray-600" href=post.link.url target="_blank")
+              blockquote(class="my-1 italic") !{post.link.excerpt}
+              small(class="block h-5 overflow-hidden text-gray-500") !{post.link.url}
