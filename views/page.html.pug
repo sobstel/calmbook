@@ -5,30 +5,31 @@ html
     title #{page.name}
     meta(name="viewport" content="width=device-width, initial-scale=1")/
     link(rel="stylesheet" href="//unpkg.com/tailwindcss@1.0.5/dist/tailwind.min.css")/
-    link(href="/"+page.username+".xml" type="application/atom+xml" rel="alternate" title=page.name)/
+    link(href="/"+username+".xml" type="application/atom+xml" rel="alternate" title=page.name)/
     script(src='/embed.js')
   body(class="bg-gray-100")
     div(class="container max-w-lg mx-auto my-4")
       img(class="w-10 h-10 rounded-full m-auto" src=page.avatar alt=page.name)
       h1(class="text-3xl font-bold text-center") #{page.name}
       each post in page.posts
-        div(id=page.timestamp class="rounded-lg bg-white shadow-lg my-8 px-6 py-6")
+        div(id=post.timestamp class="rounded-lg bg-white shadow-lg my-8 px-6 py-6")
           div(class="flex items-center")
             img(class="w-10 h-10 rounded-full mr-4" src=page.avatar alt="")
             div(class="text-sm flex-grow")
-              p(class="text-gray-900 leading-none font-bold") #{page.name}
-              div(class="clearfix")
-                a(class="float-left" href=`${page.username}@${post.id}`)
-                  p(class="text-gray-500")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
-                a(class="float-right" href=`https://facebook.com/${page.username}/posts/${post.id}` target="_blank")
-                  small() 🔗
-          div(class="my-6") !{post.message}
-          each image in post.images
-            img(class="max-w-full h-auto inline-block" src=image alt="")/
-            if post.poster
-                div(class="v relative")
-                    img(class="max-w-full h-auto inline-block cursor-pointer" data-link=`/${page.username}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)/
-            if post.link
-              a(class="text-gray-600" href=post.link.url target="_blank")
-                blockquote(class="my-1 italic") !{post.link.excerpt}
-                small(class="block whitespace-no-wrap overflow-hidden text-gray-500") !{post.link.url}
+              p(class="text-gray-900 leading-none font-bold text-lg") #{page.name}
+              p(class="text-gray-600")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
+          div(class="mt-6") !{post.message}
+          div(class="mt-6")
+            each image in post.images
+              img(class="max-w-full h-auto inline-block" src=image alt="")/
+              if post.poster
+                  div(class="v relative")
+                      img(class="max-w-full h-auto inline-block cursor-pointer" data-link=`/${username}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)/
+              if post.link
+                a(class="text-gray-600" href=post.link.url target="_blank")
+                  blockquote(class="my-1 italic") !{post.link.excerpt}
+                  small(class="block whitespace-no-wrap overflow-hidden text-gray-500") !{post.link.url}
+          div(class="mt-6 text-sm")
+            a(href=`/${username}#${post.timestamp}` class="mr-2 text-blue-600 hover:underline") permalink
+            | :
+            a(href=`https://facebook.com/${username}/posts/${post.id}` target="_blank" rel="nofollow noopener" class="text-blue-600 hover:underline mx-2") source↗

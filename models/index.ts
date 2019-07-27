@@ -24,7 +24,6 @@ export interface Post {
 
 export interface Page {
   avatar: string;
-  username: string;
   name: string;
   posts: Post[];
 }

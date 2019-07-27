@@ -14,44 +14,37 @@ const cachedAxios = axios.create({ adapter: cache.adapter });
 
 export default async (req: NowRequest, res: NowResponse) => {
   try {
-    const format =
-      req.url && req.url.substr(req.url.length - 3) === "xml" ? "xml" : "html";
+    let format = "html";
+    if (req.url && req.url.includes(".xml")) {
+      format = "xml";
+      res.setHeader("Content-Type", "application/atom+xml");
+    }
 
-    const object = sanitizeUrl(req.url);
-    if (!object || object.username.length == 0) {
+    const username = fetchUsername(req.url);
+    if (!username) {
       throw new Error(
-        "provide page @username in url, eg. https://calmbook.page/TurismoArgentina"
+        "provide page username in url, eg. https://calmbook.page/TurismoArgentina"
       );
     }
 
     const response = await cachedAxios.get(
-      object.itemid
-        ? `https://www.facebook.com/${object.username}/posts/${
-            object.itemid
-          }?_fb_noscript=1`
-        : `https://www.facebook.com/${object.username}/posts`
+      `https://www.facebook.com/${username}/posts`
     );
 
     const $ = cheerio.load(response.data);
-    const pageInfo = buildPage($);
-    const page: Page = { username: object.username, ...pageInfo };
+    const page: Page = buildPage($);
 
     const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);
-    const output = render({ page, moment });
-
-    if (format === "xml") {
-      res.setHeader("Content-Type", "application/atom+xml");
-    }
+    const output = render({ page, username, moment });
 
     res.status(200).send(output);
   } catch (error) {
+    res.setHeader("Content-Type", "text/html");
     res.status(500).send(`<center>${error.message}</center>`);
   }
 };
 
-const sanitizeUrl = (
-  url: string | undefined
-): { username: string; itemid?: string } | null => {
+const fetchUsername = (url: string | undefined): string | null => {
   if (!url) return null;
 
   let sanitizedUrl = url;
@@ -59,8 +52,7 @@ const sanitizeUrl = (
   sanitizedUrl = sanitizedUrl.replace(/\/+$/g, ""); // trailing slashes
   sanitizedUrl = sanitizedUrl.replace(/^\/+/g, ""); // leading slashes
   sanitizedUrl = sanitizedUrl.replace(/\.\w{3}$/, ""); // extension (format)
+  sanitizedUrl = sanitizedUrl.replace(/#.+$/, ""); // fragment link
 
-  const [username, itemid = undefined] = sanitizedUrl.split("@");
-
-  return { username, itemid };
+  return sanitizedUrl;
 };
