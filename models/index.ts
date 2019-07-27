@@ -22,9 +22,12 @@ export interface Post {
   link?: PostLink;
 }
 
-export interface Page {
+export interface PageInfo {
   avatar: string;
-  username: string;
   name: string;
   posts: Post[];
+}
+
+export interface Page extends PageInfo {
+  username: string;
 }
