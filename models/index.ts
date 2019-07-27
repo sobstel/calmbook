@@ -18,6 +18,7 @@ export interface Post {
   message: string;
   timestamp: number;
   title: string;
+  poster?: string;
   link?: PostLink;
 }
 

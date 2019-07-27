@@ -9,12 +9,30 @@
     {
       "src": "assets/favicon.ico",
       "use": "@now/static"
+    },
+    {
+      "src": "assets/embed.js",
+      "use": "@now/static"
     }
   ],
   "routes": [
     {
       "src": "/favicon.ico",
       "dest": "/assets/favicon.ico",
+      "headers": {
+        "Cache-Control": "maxage=2592000, s-max-age=2592000"
+      }
+    },
+    {
+      "src": "/embed.js",
+      "dest": "/assets/embed.js",
+      "headers": {
+        "Cache-Control": "maxage=2592000, s-max-age=2592000"
+      }
+    },
+    {
+      "src": "/video",
+      "dest": "/video.ts",
       "headers": {
         "Cache-Control": "maxage=2592000, s-max-age=2592000"
       }

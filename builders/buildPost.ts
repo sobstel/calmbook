@@ -1,19 +1,35 @@
 import { Post, PostLink } from "../models";
 
-const findPostId = (link: string): string => {
-  const postLinkIdRegEx = /\/([a-z0-9]+)\/?(?:\?.*)?$/g;
+const getPostInfo = (link: string): { type?: string; id?: string } => {
+  const postLinkIdRegEx = /\/([a-z]+)?\/([a-z0-9]+)\/?(?:\?.*)?$/g;
   const match = postLinkIdRegEx.exec(link);
-  return match && match.length > 0 ? match[1] : "";
+  if (match) {
+    switch (match.length) {
+      case 2:
+        return { type: undefined, id: match[1] };
+      case 3:
+        return { type: match[1], id: match[2] };
+    }
+  }
+  return {};
 };
 
 const buildPost = ($: CheerioSelector): Post => {
   const timestamp = parseInt($("abbr[data-utime]").attr("data-utime")) * 1000;
 
-  const postLink = $("div[id^=feed_subtitle] a").attr("href");
-  const id = findPostId(postLink);
+  const linkToPost = $("div[id^=feed_subtitle] a").attr("href");
+  const { type = "", id = "" } = getPostInfo(linkToPost);
 
   const { message, images = [], link } = buildContent($);
 
+  // Fetch video poster
+  let poster = undefined;
+  if (type === "videos") {
+    poster = $("video")
+      .parent()
+      .find("img")
+      .attr("src");
+  }
   const title =
     message
       .replace(/<[^>]+>/g, "")
@@ -21,7 +37,7 @@ const buildPost = ($: CheerioSelector): Post => {
       .slice(0, 8)
       .join(" ") + "...";
 
-  return { title, id, timestamp, message, images, link };
+  return { title, id, timestamp, message, images, poster, link };
 };
 
 export default buildPost;
