@@ -17,7 +17,9 @@ html
             img(class="w-10 h-10 rounded-full mr-4" src=page.avatar alt="")
             div(class="text-sm flex-grow")
               p(class="text-gray-900 leading-none font-bold text-lg") #{page.name}
-              p(class="text-gray-600")= moment(post.timestamp).format('YYYY-MM-DD HH:mm')
+              p(class="text-gray-600")
+                a(href=`/${username}#${post.timestamp}` class="hover:underline")
+                  =moment(post.timestamp).format('YYYY-MM-DD HH:mm')
           div(class="mt-6") !{post.message}
           div(class="mt-6")
             each image in post.images
