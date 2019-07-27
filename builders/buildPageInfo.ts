@@ -1,8 +1,7 @@
-import cheerio from "cheerio";
-import { Page } from "../models";
-import buildPosts from "../builders/buildPosts";
+import { PageInfo } from "../models";
+import buildPosts from "./buildPosts";
 
-const buildPage = ($: CheerioSelector): Omit<Page, "username"> => {
+const buildPageInfo = ($: CheerioSelector): PageInfo => {
   const avatar = buildAvatar($);
   const name = buildName($);
   const posts = buildPosts($);
@@ -10,7 +9,7 @@ const buildPage = ($: CheerioSelector): Omit<Page, "username"> => {
   return { name, posts, avatar };
 };
 
-export default buildPage;
+export default buildPageInfo;
 
 const buildName = ($: CheerioSelector) => {
   let name = $('meta[property="og:title"]').attr("content");

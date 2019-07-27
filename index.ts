@@ -4,8 +4,8 @@ import { setupCache } from "axios-cache-adapter";
 import cheerio from "cheerio";
 import pug from "pug";
 import moment from "moment";
-import buildPage from "./builders/buildPage";
-import { Page } from "./models";
+import buildPageInfo from "./builders/buildPageInfo";
+import { Page, PageInfo } from "./models";
 
 const cache = setupCache({ maxAge: 5 * 60 * 1000 });
 
@@ -32,10 +32,11 @@ export default async (req: NowRequest, res: NowResponse) => {
     );
 
     const $ = cheerio.load(response.data);
-    const page: Page = buildPage($);
+    const pageInfo: PageInfo = buildPageInfo($);
+    const page: Page = { ...pageInfo, username };
 
     const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);
-    const output = render({ page, username, moment });
+    const output = render({ page, moment });
 
     res.status(200).send(output);
   } catch (error) {
