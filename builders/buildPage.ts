@@ -1,17 +1,26 @@
-import { PageInfo } from "../models";
+import { Page } from "../models";
 import buildPosts from "./buildPosts";
 
-const buildPageInfo = ($: CheerioSelector): PageInfo => {
-  const avatar = buildAvatar($);
+const buildPage = ($: CheerioSelector): Page => {
+  const url = buildUrl($);
   const name = buildName($);
+  const avatar = buildAvatar($);
   const posts = buildPosts($);
 
-  return { name, posts, avatar };
+  return { url, name, avatar, posts };
 };
 
-export default buildPageInfo;
+export default buildPage;
 
-const buildName = ($: CheerioSelector) => {
+const buildUrl = ($: CheerioSelector): string => {
+  return $('[data-key="tab_home"] > a')
+    .attr("href")
+    .replace("?ref=page_internal", "")
+    .replace(/\/+$/g, "")
+    .replace(/^\/+/g, "");
+};
+
+const buildName = ($: CheerioSelector): string => {
   let name = $('meta[property="og:title"]').attr("content");
 
   if (!name) {

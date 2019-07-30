@@ -4,8 +4,8 @@ import { setupCache } from "axios-cache-adapter";
 import cheerio from "cheerio";
 import pug from "pug";
 import moment from "moment";
-import buildPageInfo from "./builders/buildPageInfo";
-import { Page, PageInfo } from "./models";
+import buildPage from "./builders/buildPage";
+import { Page } from "./models";
 
 const cache = setupCache({ maxAge: 5 * 60 * 1000 });
 
@@ -16,20 +16,19 @@ export default async (req: NowRequest, res: NowResponse) => {
   try {
     const format = getFormat(req.url);
 
-    const username = fetchUsername(req.url);
-    if (!username) {
+    const url = sanitizeUrl(req.url);
+    if (!url) {
       throw new Error(
-        "provide page username in url, eg. https://calmbook.page/TurismoArgentina"
+        "provide valid page url, eg. https://calmbook.page/TurismoArgentina"
       );
     }
 
     const response = await cachedAxios.get(
-      `https://www.facebook.com/${username}/posts`
+      `https://www.facebook.com/${url}/posts`
     );
 
     const $ = cheerio.load(response.data);
-    const pageInfo: PageInfo = buildPageInfo($);
-    const page: Page = { ...pageInfo, username };
+    const page: Page = buildPage($);
 
     const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);
     const output = render({ page, moment });
@@ -52,7 +51,7 @@ const getFormat = (url: string | undefined): string => {
   return "html";
 };
 
-const fetchUsername = (url: string | undefined): string | null => {
+const sanitizeUrl = (url: string | undefined): string | null => {
   if (!url) return null;
 
   let sanitizedUrl = url;
