@@ -18,5 +18,5 @@ feed(xmlns='http://www.w3.org/2005/Atom')
           each image in post.images
             img(src=image alt="")/
         | ]]>
-      link(href='https://calmbook.page/'+page.url+'#'+post.timestamp, rel='self')
+      link= 'https://calmbook.page/'+page.url+'#'+post.timestamp
   generator Calmbook
