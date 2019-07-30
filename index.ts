@@ -14,11 +14,7 @@ const cachedAxios = axios.create({ adapter: cache.adapter });
 
 export default async (req: NowRequest, res: NowResponse) => {
   try {
-    let format = "html";
-    if (req.url && req.url.includes(".xml")) {
-      format = "xml";
-      res.setHeader("Content-Type", "application/atom+xml");
-    }
+    const format = getFormat(req.url);
 
     const url = sanitizeUrl(req.url);
     if (!url) {
@@ -37,11 +33,22 @@ export default async (req: NowRequest, res: NowResponse) => {
     const render = pug.compileFile(`${__dirname}/views/page.${format}.pug`);
     const output = render({ page, moment });
 
+    if (format === "xml") {
+      res.setHeader("Content-Type", "application/atom+xml");
+    }
+
     res.status(200).send(output);
   } catch (error) {
     res.setHeader("Content-Type", "text/html");
     res.status(500).send(`<center>${error.message}</center>`);
   }
+};
+
+const getFormat = (url: string | undefined): string => {
+  if (url && url.includes(".xml")) {
+    return "xml";
+  }
+  return "html";
 };
 
 const sanitizeUrl = (url: string | undefined): string | null => {
