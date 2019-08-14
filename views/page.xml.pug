@@ -12,7 +12,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
       title= post.title
       updated= moment(post.timestamp).format("YYYY-MM-DDTHH:mm:ssZ")
       content
-        | <!CDATA[
+        | <![CDATA[
         div!= post.message
         div
           each image in post.images
