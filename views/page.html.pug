@@ -23,10 +23,11 @@ html
           div(class="my-6") !{post.message}
           div(class="mt-6")
             each image in post.images
-              img(class="max-w-full min-w-full h-auto inline-block" src=image alt="")/
+              if !post.poster
+                img(class="max-w-full min-w-full h-auto inline-block" src=image alt="")/
               if post.poster
-                  div(class="v relative")
-                      img(class="max-w-full min-w-full h-auto inline-block cursor-pointer" data-link=`/${page.url}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)/
+                div(class="v relative")
+                    img(class="max-w-full min-w-full h-auto inline-block cursor-pointer" data-link=`/${page.url}/videos/${post.id}` src=post.poster alt="" onClick=`__embed(this)`)/
               if post.link
                 a(class="text-gray-600" href=post.link.url target="_blank")
                   blockquote(class="my-1 italic") !{post.link.excerpt}

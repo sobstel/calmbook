@@ -23,7 +23,7 @@ const buildPost = ($: CheerioSelector): Post => {
   const { message, images = [], link } = buildContent($);
 
   // Fetch video poster
-  let poster = undefined;
+  let poster;
   if (type === "videos") {
     poster = $("video")
       .parent()
@@ -68,7 +68,7 @@ const buildContent = (
     imgNodes && imgNodes.toArray().map(element => element.attribs["src"]);
 
   // fetch any external links
-  let postLink: PostLink | undefined = undefined;
+  let postLink: PostLink | undefined;
   const aNodes = userContent.next().find("a");
   aNodes
     .toArray()
