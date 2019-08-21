@@ -97,12 +97,13 @@ asap@~2.0.3:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
 
-axios-cache-adapter@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/axios-cache-adapter/-/axios-cache-adapter-2.3.3.tgz#e35f9b739c3e1559a009763cc441f2c6b2698826"
-  integrity sha512-8sDkMwrW1zXB4J2VxVyjjKocPqCzGRPrqNtKChbkIR/MCpSUVGcdCcJlO3nnsJMAIak/NCCRy8wX5uvNJ6Yj2Q==
+axios-cache-adapter@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/axios-cache-adapter/-/axios-cache-adapter-2.4.1.tgz#c9b736dae5fe17a5e12c2a2d0a595c3bf990ebd3"
+  integrity sha512-RTqieW2OjRyEqzWr3cJjNIG8J7SwoPkW0JIkc5OQaJ1n35yBJ4HgqiZC+O56YmIicUPaDTXq8kdtGA9O5B+/fQ==
   dependencies:
-    axios "^0.18.0"
+    axios "0.18.1"
+    cache-control-esm "1.0.0"
     lodash "^4.17.11"
 
 axios@*, axios@0.19.0:
@@ -113,7 +114,7 @@ axios@*, axios@0.19.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-axios@^0.18.0:
+axios@0.18.1:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
   integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
@@ -148,6 +149,11 @@ boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+
+cache-control-esm@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cache-control-esm/-/cache-control-esm-1.0.0.tgz#417647ecf1837a5e74155f55d5a4ae32a84e2581"
+  integrity sha512-Fa3UV4+eIk4EOih8FTV6EEsVKO0W5XWtNs6FC3InTfVz+EjurjPfDXY5wZDo/lxjDxg5RjNcurLyxEJBcEUx9g==
 
 camelcase@^1.0.2:
   version "1.2.1"
