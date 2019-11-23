@@ -24,5 +24,5 @@ Built with
 
 ## Sample pages
 
-- <https://calmbook.page/TurismoArgentina>
-- <https://calmbook.page/gorceultratrail>
+- <https://calmbook.sobstel.now.sh/TurismoArgentina>
+- <https://calmbook.sobstel.now.sh/gorceultratrail>
