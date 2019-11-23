@@ -19,7 +19,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     const url = sanitizeUrl(req.url);
     if (!url) {
       throw new Error(
-        "provide valid page url, eg. https://calmbook.page/TurismoArgentina"
+        "provide valid page url, eg. https://calmbook.sobstel.now.sh/TurismoArgentina"
       );
     }
 
