@@ -10,7 +10,7 @@
   "devDependencies": {
     "@now/node": "0.12.7",
     "@types/axios": "0.14.0",
-    "@types/cheerio": "0.22.12",
+    "@types/cheerio": "0.22.13",
     "@types/pug": "2.0.4",
     "typescript": "3.5.3"
   },
