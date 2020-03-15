@@ -12,6 +12,7 @@
     "@types/axios": "0.14.0",
     "@types/cheerio": "0.22.13",
     "@types/pug": "2.0.4",
+    "now": "^17.0.4",
     "typescript": "3.5.3"
   },
   "dependencies": {

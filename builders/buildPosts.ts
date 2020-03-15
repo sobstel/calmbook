@@ -9,7 +9,9 @@ const buildPosts = ($: CheerioSelector): Post[] => {
     posts.push(post);
   });
 
-  return posts;
+  const sortedPosts = posts.sort((a, b) => b.timestamp - a.timestamp);
+
+  return sortedPosts;
 };
 
 export default buildPosts;
