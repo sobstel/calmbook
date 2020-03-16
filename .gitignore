@@ -1,1 +1,11 @@
 node_modules
+.now
+
+# misc
+.DS_Store
+.env*
+.vscode
+
+# next.js
+/.next/
+/out/

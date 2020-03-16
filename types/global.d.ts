@@ -1,4 +1,4 @@
-export const enum PostType {
+declare enum PostType {
   text = "text",
   image = "image",
   video = "video",
@@ -7,12 +7,12 @@ export const enum PostType {
   complex = "complex"
 }
 
-export interface PostLink {
+interface PostLink {
   excerpt: string;
   url: string;
 }
 
-export interface Post {
+interface Post {
   id: string;
   images: string[];
   message: string;
@@ -22,7 +22,7 @@ export interface Post {
   link?: PostLink;
 }
 
-export interface Page {
+interface Page {
   url: string;
   avatar: string;
   name: string;

@@ -1,5 +1,3 @@
-import { Post, PostLink } from "../models";
-
 const getPostInfo = (link: string): { type?: string; id?: string } => {
   const postLinkIdRegEx = /\/([a-z]+)?\/([a-z0-9]+)\/?(?:\?.*)?$/g;
   const match = postLinkIdRegEx.exec(link);
@@ -76,7 +74,6 @@ const buildContent = (
     .map(node => {
       const proxyLink = node.attribs["href"] as string;
       const excerpt = node.children[0].data as string;
-      const prefix = "";
       const linkRegEx = /^https?:\/\/l.facebook.com\/l\.php\?u=(.*)$/;
       const match = linkRegEx.exec(proxyLink);
       if (match) {

@@ -1,4 +1,3 @@
-import { Page } from "../models";
 import buildPosts from "./buildPosts";
 
 const buildPage = ($: CheerioSelector): Page => {

@@ -2,10 +2,8 @@ import { NowRequest, NowResponse } from "@now/node";
 import axios from "axios";
 import { setupCache } from "axios-cache-adapter";
 import cheerio from "cheerio";
-import pug from "pug";
 import moment from "moment";
-import buildPage from "./builders/buildPage";
-import { Page } from "./models";
+import buildPage from "../builders/buildPage";
 
 const cache = setupCache({ maxAge: 5 * 60 * 1000 });
 
