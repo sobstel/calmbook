@@ -6,6 +6,15 @@ type Props = { post: Post; page: Page };
 export default function Post({ post, page }: Props) {
   return (
     <div id={post.timestamp.toString()} className="px-2">
+      <div className="mb-4">
+        <a
+          href={`/${page.url}#${post.timestamp}`}
+          className="px-2 py-1 font-medium text-sm bg-gray-300 hover:bg-blue-100 rounded"
+        >
+          {dayjs(post.timestamp).format("YYYY-MM-DD HH:mm")}
+        </a>
+      </div>
+
       <div
         className="my-2"
         dangerouslySetInnerHTML={{ __html: post.message }}
@@ -62,15 +71,6 @@ export default function Post({ post, page }: Props) {
           })}
         </div>
       )}
-
-      <div className="my-2 pt-4">
-        <a
-          href={`/${page.url}#${post.timestamp}`}
-          className="text-gray-400 text-sm hover:underline"
-        >
-          {dayjs(post.timestamp).format("YYYY-MM-DD HH:mm")}
-        </a>
-      </div>
     </div>
   );
 }

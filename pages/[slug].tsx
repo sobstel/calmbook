@@ -1,4 +1,5 @@
 import { NextPageContext } from "next";
+import Head from "next/head";
 import useSWR from "swr";
 import Page from "components/Page";
 import { json } from "util/request";
@@ -45,5 +46,15 @@ export async function getServerSideProps({ query, req, res }: NextPageContext) {
 export default function CalmbookPage({ slug }: Props) {
   // TODO: handle error too
   const { data } = useSWR(apiPath(slug));
-  return <Page page={data && data.page} />;
+  const page = data && data.page;
+  return (
+    <div>
+      {page && (
+        <Head>
+          <title>{data.page.name}</title>
+        </Head>
+      )}
+      <Page page={page} />
+    </div>
+  );
 }
