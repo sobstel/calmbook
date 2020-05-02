@@ -1,8 +1,9 @@
 import buildPosts from "./buildPosts";
 
 const buildUrl = ($: CheerioSelector): string => {
-  return $('[data-key="tab_home"] > a')
-    .attr("href")
+  const href = $('[data-key="tab_home"] > a').attr("href");
+  if (!href) return "";
+  return href
     .replace("?ref=page_internal", "")
     .replace(/\/+$/g, "")
     .replace(/^\/+/g, "");
