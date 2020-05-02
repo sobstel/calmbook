@@ -8,6 +8,8 @@ type Props = { children: React.ReactNode };
 
 export default function Layout(props: Props) {
   return (
-    <div className="container max-w-lg mx-auto my-4">{props.children}</div>
+    <div className="container max-w-xl mx-auto my-4 font-layout leading-normal">
+      {props.children}
+    </div>
   );
 }
