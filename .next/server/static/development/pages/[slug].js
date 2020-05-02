@@ -88,93 +88,149 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./components/Page.tsx":
+/*!*****************************!*\
+  !*** ./components/Page.tsx ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Page; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/Users/sobstel/Projects/calmbook/components/Page.tsx";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+function Page({
+  page
+}) {
+  return __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5
+    },
+    __self: this
+  }, __jsx("img", {
+    className: "w-10 h-10 rounded-full m-auto",
+    src: page.avatar,
+    alt: page.name,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: this
+  }), __jsx("h1", {
+    className: "text-3xl font-bold text-center",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: this
+  }, page.name), __jsx("p", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
+    },
+    __self: this
+  }, "TO DO"));
+}
+
+/***/ }),
 
 /***/ "./pages/[slug].tsx":
 /*!**************************!*\
   !*** ./pages/[slug].tsx ***!
   \**************************/
-/*! exports provided: default, getServerSideProps */
+/*! exports provided: getServerSideProps, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CalmbookPage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CalmbookPage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "axios");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios_cache_adapter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios-cache-adapter */ "axios-cache-adapter");
-/* harmony import */ var axios_cache_adapter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios_cache_adapter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swr */ "swr");
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(swr__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var util_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! util/request */ "./util/request.ts");
+/* harmony import */ var components_Page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Page */ "./components/Page.tsx");
 var _jsxFileName = "/Users/sobstel/Projects/calmbook/pages/[slug].tsx";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-const cache = Object(axios_cache_adapter__WEBPACK_IMPORTED_MODULE_2__["setupCache"])({
-  maxAge: 5 * 60 * 1000
-}); // @ts-ignore
 
-const cachedAxios = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create({
-  adapter: cache.adapter
-});
-function CalmbookPage({
-  data
-}) {
-  return __jsx("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 16
-    },
-    __self: this
-  }, data);
+
+function apiPath(slug) {
+  return `/api/page?name=${slug}`;
 }
+
 async function getServerSideProps({
-  query
+  query,
+  req
 }) {
-  const {
-    slug
-  } = query; // TODO: check for context.preview
+  const slug = query.slug; // TODO
 
-  const sanitizedSlug = sanitizeSlug(slug);
-
-  if (!sanitizedSlug) {
-    throw new Error("provide valid page url, eg. https://calmbook.sobstel.now.sh/TurismoArgentina");
-  }
-
-  const response = await cachedAxios.get(`https://www.facebook.com/${sanitizedSlug}/posts`); // TODO: prase to JSON using builders or so
-  // const $ = cheerio.load(response.data);
-  // Pass JSON here
-
+  const protocol = "http";
+  const url = `${protocol}://${req === null || req === void 0 ? void 0 : req.headers.host}${apiPath(slug)}`;
+  const data = await Object(util_request__WEBPACK_IMPORTED_MODULE_2__["default"])(url);
   return {
     props: {
-      data: response.data
+      data,
+      slug
     }
   };
 }
-
-const sanitizeSlug = url => {
-  if (!url) return;
-  let sanitizedUrl = url;
-  sanitizedUrl = sanitizedUrl.trim();
-  sanitizedUrl = sanitizedUrl.replace(/\/+$/g, ""); // trailing slashes
-
-  sanitizedUrl = sanitizedUrl.replace(/^\/+/g, ""); // leading slashes
-
-  sanitizedUrl = sanitizedUrl.replace(/\.\w{3}$/, ""); // extension (format)
-
-  sanitizedUrl = sanitizedUrl.replace(/#.+$/, ""); // fragment link
-
-  return sanitizedUrl;
-};
+function CalmbookPage({
+  data: initialData,
+  slug
+}) {
+  // TODO: handle error too
+  const {
+    data
+  } = swr__WEBPACK_IMPORTED_MODULE_1___default()(apiPath(slug), util_request__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  const {
+    page
+  } = data || initialData;
+  return __jsx(components_Page__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    page: page,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28
+    },
+    __self: this
+  });
+}
 
 /***/ }),
 
-/***/ 4:
+/***/ "./util/request.ts":
+/*!*************************!*\
+  !*** ./util/request.ts ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return request; });
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0__);
+
+function request(url) {
+  return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_0___default()(url).then(response => response.json());
+}
+
+/***/ }),
+
+/***/ 5:
 /*!********************************!*\
   !*** multi ./pages/[slug].tsx ***!
   \********************************/
@@ -186,25 +242,14 @@ module.exports = __webpack_require__(/*! /Users/sobstel/Projects/calmbook/pages/
 
 /***/ }),
 
-/***/ "axios":
-/*!************************!*\
-  !*** external "axios" ***!
-  \************************/
+/***/ "isomorphic-unfetch":
+/*!*************************************!*\
+  !*** external "isomorphic-unfetch" ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
-
-/***/ }),
-
-/***/ "axios-cache-adapter":
-/*!**************************************!*\
-  !*** external "axios-cache-adapter" ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("axios-cache-adapter");
+module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 
@@ -216,6 +261,17 @@ module.exports = require("axios-cache-adapter");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "swr":
+/*!**********************!*\
+  !*** external "swr" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("swr");
 
 /***/ })
 

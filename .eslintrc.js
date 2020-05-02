@@ -13,12 +13,13 @@ module.exports = {
       jsx: true
     }
   },
-  rules: {
-    "react/react-in-jsx-scope": "off",
-  },
   settings: {
     react: {
       version: "detect"
     }
+  },
+  rules: {
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
   }
 };

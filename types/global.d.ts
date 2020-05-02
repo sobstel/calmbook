@@ -7,11 +7,13 @@ declare enum PostType {
   complex = "complex"
 }
 
+// TODO: change to type
 interface PostLink {
   excerpt: string;
   url: string;
 }
 
+// TODO: change to type
 interface Post {
   id: string;
   images: string[];
@@ -22,9 +24,10 @@ interface Post {
   link?: PostLink;
 }
 
+// TODO: change to type
 interface Page {
   url: string;
-  avatar: string;
+  avatar?: string;
   name: string;
   posts: Post[];
 }

@@ -268,25 +268,28 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error!./":
-/*!***********************************************************************************************************************************************!*\
-  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error ***!
-  \***********************************************************************************************************************************************/
+/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error&hotRouterUpdates=true!./":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error&hotRouterUpdates=true ***!
+  \*********************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    (window.__NEXT_P=window.__NEXT_P||[]).push(["/_error", function() {
-      var mod = __webpack_require__(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js")
-      if(true) {
-        module.hot.accept(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js", function() {
-          if(!next.router.components["/_error"]) return
-          var updatedPage = __webpack_require__(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js")
-          next.router.update("/_error", updatedPage)
-        })
+    (window.__NEXT_P = window.__NEXT_P || []).push([
+      "/_error",
+      function () {
+        var mod = __webpack_require__(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js");
+        if (true) {
+          module.hot.accept(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js", function () {
+            if (!next.router.components["/_error"]) return;
+            var updatedPage = __webpack_require__(/*! next/dist/pages/_error */ "./node_modules/next/dist/pages/_error.js");
+            next.router.update("/_error", updatedPage);
+          });
+        }
+        return mod;
       }
-      return mod
-    }]);
+    ]);
   
 
 /***/ }),
@@ -318,6 +321,10 @@ Object.defineProperty(exports, "__esModule", {
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 exports.AmpStateContext = React.createContext({});
+
+if (true) {
+  exports.AmpStateContext.displayName = 'AmpStateContext';
+}
 
 /***/ }),
 
@@ -395,6 +402,10 @@ Object.defineProperty(exports, "__esModule", {
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 exports.HeadManagerContext = React.createContext(null);
+
+if (true) {
+  exports.HeadManagerContext.displayName = 'HeadManagerContext';
+}
 
 /***/ }),
 
@@ -535,7 +546,7 @@ function unique() {
 }
 /**
  *
- * @param headElement List of multiple <Head> instances
+ * @param headElements List of multiple <Head> instances
  */
 
 
@@ -714,9 +725,19 @@ var statusCodes = {
   405: 'Method Not Allowed',
   500: 'Internal Server Error'
 };
+
+function _getInitialProps(_ref) {
+  var res = _ref.res,
+      err = _ref.err;
+  var statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
+  return {
+    statusCode: statusCode
+  };
+}
 /**
 * `Error` component used for handling errors.
 */
+
 
 var Error = /*#__PURE__*/function (_react$default$Compon) {
   _inherits(Error, _react$default$Compon);
@@ -746,16 +767,6 @@ var Error = /*#__PURE__*/function (_react$default$Compon) {
         style: styles.h2
       }, title, "."))));
     }
-  }], [{
-    key: "getInitialProps",
-    value: function getInitialProps(_ref) {
-      var res = _ref.res,
-          err = _ref.err;
-      var statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
-      return {
-        statusCode: statusCode
-      };
-    }
   }]);
 
   return Error;
@@ -763,6 +774,8 @@ var Error = /*#__PURE__*/function (_react$default$Compon) {
 
 exports["default"] = Error;
 Error.displayName = 'ErrorPage';
+Error.getInitialProps = _getInitialProps;
+Error.origGetInitialProps = _getInitialProps;
 var styles = {
   error: {
     color: '#000',
@@ -805,25 +818,25 @@ var styles = {
 
 /***/ "./node_modules/react/index.js":
 /*!*******************************************************************************************!*\
-  !*** delegated ./node_modules/react/index.js from dll-reference dll_0fb095e325d7ebf261c3 ***!
+  !*** delegated ./node_modules/react/index.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_0fb095e325d7ebf261c3 */ "dll-reference dll_0fb095e325d7ebf261c3"))("./node_modules/react/index.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/react/index.js");
 
 /***/ }),
 
-/***/ "dll-reference dll_0fb095e325d7ebf261c3":
+/***/ "dll-reference dll_c2e10d183b950a67d9e7":
 /*!*******************************************!*\
-  !*** external "dll_0fb095e325d7ebf261c3" ***!
+  !*** external "dll_c2e10d183b950a67d9e7" ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = dll_0fb095e325d7ebf261c3;
+module.exports = dll_c2e10d183b950a67d9e7;
 
 /***/ })
 
-},[["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error!./","static/runtime/webpack.js"]]]);
+},[["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error&hotRouterUpdates=true!./","static/runtime/webpack.js"]]]);
 //# sourceMappingURL=_error.js.map

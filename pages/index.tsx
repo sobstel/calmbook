@@ -1,5 +1,3 @@
-function HomePage() {
-  return (<div>Calmbook</div>);
+export default function CalmbookIndex() {
+  return <div>Calmbook</div>;
 }
-
-export default HomePage
