@@ -3,6 +3,8 @@ import Post from "./Post";
 type Props = { page: Page };
 
 export default function Page({ page }: Props) {
+  if (!page) return <div>Loading...</div>;
+
   return (
     <div>
       <img

@@ -1,6 +1,5 @@
 import { NextPageContext } from "next";
 import useSWR from "swr";
-import request from "util/request";
 import Page from "components/Page";
 
 type Props = {
@@ -22,15 +21,6 @@ export async function getServerSideProps({ query }: NextPageContext) {
 
 export default function CalmbookPage({ slug }: Props) {
   // TODO: handle error too
-  const { data } = useSWR(apiPath(slug), request);
-
-  // TODO: show skeleton using Suspense
-  if (!data) return null;
-
-  const { page } = data; // || initialData;
-
-  // TODO: show skeleton using Suspense
-  if (!page) return null;
-
-  return <Page page={page} />;
+  const { data } = useSWR(apiPath(slug));
+  return <Page page={data && data.page} />;
 }

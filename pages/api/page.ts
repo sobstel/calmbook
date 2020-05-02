@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import request from "util/request";
 import cheerio from "cheerio";
 import buildPage from "builders/buildPage";
 
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const sanitizedName = sanitizeName(name);
-  const response = await axios.get(
+  const response = await request(
     `https://www.facebook.com/${sanitizedName}/posts`
   );
 

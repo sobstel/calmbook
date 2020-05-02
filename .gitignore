@@ -5,6 +5,7 @@ node_modules
 .DS_Store
 .env*
 .vscode
+yarn-error.log
 
 # next.js
 .next/*
