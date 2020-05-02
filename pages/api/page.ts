@@ -34,5 +34,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const $ = cheerio.load(response.data);
   const page: Page = buildPage($);
 
+  res.setHeader("Cache-Control", "s-maxage=300");
   res.status(200).json({ page });
 };
