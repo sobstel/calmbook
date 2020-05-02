@@ -3,17 +3,6 @@ import { text } from "util/request";
 import cheerio from "cheerio";
 import buildPage from "builders/buildPage";
 
-// TODO: move to "util"
-const sanitizeName = (name: string): string => {
-  let sanitizedName = name;
-  sanitizedName = sanitizedName.trim();
-  sanitizedName = sanitizedName.replace(/\/+$/g, ""); // trailing slashes
-  sanitizedName = sanitizedName.replace(/^\/+/g, ""); // leading slashes
-  sanitizedName = sanitizedName.replace(/\.\w{3}$/, ""); // extension (format)
-  sanitizedName = sanitizedName.replace(/#.+$/, ""); // fragment link
-  return sanitizedName;
-};
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") {
     res.status(404).json({ error: 404 });
@@ -26,10 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const sanitizedName = sanitizeName(name);
-  const htmlContent = await text(
-    `https://www.facebook.com/${sanitizedName}/posts`
-  );
+  const htmlContent = await text(`https://www.facebook.com/${name}/posts`);
 
   const $ = cheerio.load(htmlContent);
   const page: Page = buildPage($);

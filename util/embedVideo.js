@@ -60,7 +60,6 @@ function videoEmbedCompleteHandler(req, img) {
 }
 
 export default function embedVideo(img) {
-  console.log('embedVideo', img);
   const link = img.dataset.link;
   if (!link) {
     return;
