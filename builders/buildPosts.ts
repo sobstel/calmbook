@@ -1,5 +1,4 @@
 import cheerio from "cheerio";
-import { Post } from "../models";
 import buildPost from "../builders/buildPost";
 
 const buildPosts = ($: CheerioSelector): Post[] => {

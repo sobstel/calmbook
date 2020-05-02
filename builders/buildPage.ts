@@ -1,20 +1,9 @@
-import { Page } from "../models";
 import buildPosts from "./buildPosts";
 
-const buildPage = ($: CheerioSelector): Page => {
-  const url = buildUrl($);
-  const name = buildName($);
-  const avatar = buildAvatar($);
-  const posts = buildPosts($);
-
-  return { url, name, avatar, posts };
-};
-
-export default buildPage;
-
 const buildUrl = ($: CheerioSelector): string => {
-  return $('[data-key="tab_home"] > a')
-    .attr("href")
+  const href = $('[data-key="tab_home"] > a').attr("href");
+  if (!href) return "";
+  return href
     .replace("?ref=page_internal", "")
     .replace(/\/+$/g, "")
     .replace(/^\/+/g, "");
@@ -45,3 +34,14 @@ const buildAvatar = ($: CheerioSelector) => {
 
   return avatar;
 };
+
+const buildPage = ($: CheerioSelector): Page => {
+  const url = buildUrl($);
+  const name = buildName($);
+  const avatar = buildAvatar($);
+  const posts = buildPosts($);
+
+  return { url, name, avatar, posts };
+};
+
+export default buildPage;
