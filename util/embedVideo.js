@@ -59,7 +59,8 @@ function videoEmbedCompleteHandler(req, img) {
   };
 }
 
-function __embed(img) {
+export default function embedVideo(img) {
+  console.log('embedVideo', img);
   const link = img.dataset.link;
   if (!link) {
     return;
@@ -74,7 +75,7 @@ function __embed(img) {
   const loader = createLoaderNode(bounds);
   container.appendChild(loader);
 
-  const url = "/video?link=" + link;
+  const url = "/api/video?link=" + link;
   var req = new XMLHttpRequest();
   req.onload = videoEmbedCompleteHandler(req, img);
   req.open("GET", url);

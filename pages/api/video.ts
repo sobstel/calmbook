@@ -1,15 +1,16 @@
-import axios from "axios";
 import { NowRequest, NowResponse } from "@now/node";
+import request from "util/request";
 
 const FBVideoEmbedEndpoint = "https://facebook.com/plugins/video/oembed.json/";
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const link = req.query.link;
+  const link = req.query.link as string;
+  console.log(`${FBVideoEmbedEndpoint}?url=https://facebook.com${link}`);
   try {
-    const embed = await axios.get(
+    const data = await request(
       `${FBVideoEmbedEndpoint}?url=https://facebook.com${link}`
     );
-    res.json(embed.data);
+    res.json(data);
   } catch (e) {
     res.json({ error: e.message });
   }
