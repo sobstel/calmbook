@@ -15,7 +15,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const htmlContent = await text(`https://www.facebook.com/${name}/posts`);
+  const htmlContent = await text(
+    `https://www.facebook.com/${encodeURI(name)}/posts`
+  );
 
   const $ = cheerio.load(htmlContent);
   const page: Page = buildPage($);
