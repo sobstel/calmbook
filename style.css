@@ -3,3 +3,5 @@
 /* purgecss end ignore */
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://unpkg.com/css.gg/icons/css/album.css");

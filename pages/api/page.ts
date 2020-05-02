@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import request from "util/request";
+import { text } from "util/request";
 import cheerio from "cheerio";
 import buildPage from "builders/buildPage";
 
@@ -27,11 +27,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const sanitizedName = sanitizeName(name);
-  const response = await request(
+  const htmlContent = await text(
     `https://www.facebook.com/${sanitizedName}/posts`
   );
 
-  const $ = cheerio.load(response.data);
+  const $ = cheerio.load(htmlContent);
   const page: Page = buildPage($);
 
   res.setHeader("Cache-Control", "s-maxage=300");

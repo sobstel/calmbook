@@ -1,5 +1,9 @@
 import fetch from "isomorphic-unfetch";
 
-export default function request(url: string) {
+export function json(url: string) {
   return fetch(url).then((response) => response.json());
+}
+
+export function text(url: string) {
+  return fetch(url).then((response) => response.text());
 }

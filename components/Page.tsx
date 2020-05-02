@@ -1,21 +1,28 @@
 import Post from "./Post";
+import Logo from "./Logo";
 
 type Props = { page: Page };
 
 export default function Page({ page }: Props) {
-  if (!page) return <div>Loading...</div>;
+  if (!page) {
+    return (
+      <div>
+        <Logo />
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <img
-        className="w-10 h-10 rounded-full m-auto"
-        src={page.avatar}
-        alt={page.name}
-      />
-      <h1 className="text-3xl font-bold text-center">{page.name}</h1>
-      {page.posts.map((post) => (
-        <Post key={post.timestamp} post={post} page={page} />
-      ))}
+      <Logo />
+      <div className="divide-y divide-gray-300">
+        {page.posts.map((post) => (
+          <div key={post.timestamp} className="py-12">
+            <Post post={post} page={page} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
