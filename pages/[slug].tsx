@@ -14,8 +14,7 @@ function apiPath(slug: string): string {
 
 export async function getServerSideProps({ query, req }: NextPageContext) {
   const slug = query.slug as string;
-  // TODO
-  const protocol = "http";
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const url = `${protocol}://${req?.headers.host}${apiPath(slug)}`;
   const data = await request(url);
   return { props: { data, slug } };

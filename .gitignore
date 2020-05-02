@@ -7,5 +7,5 @@ node_modules
 .vscode
 
 # next.js
-/.next/
-/out/
+.next/*
+out/*
