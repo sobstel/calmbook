@@ -4,7 +4,7 @@ import request from "util/request";
 import Page from "components/Page";
 
 type Props = {
-  data: { page: Page };
+  // data: { page: Page };
   slug: string;
 };
 
