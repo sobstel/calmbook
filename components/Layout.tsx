@@ -4,7 +4,6 @@ type Props = { children: React.ReactNode };
 
 // TODO
 // link(href="/"+page.url+".xml" type="application/atom+xml" rel="alternate" title=page.name)/
-// script(src='/embed.js')
 
 export default function Layout(props: Props) {
   return (

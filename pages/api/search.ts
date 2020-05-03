@@ -48,7 +48,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const results = items
     ?.filter((item) =>
-      ["videos", "photos"].every((string) => item?.link?.indexOf(string) === -1)
+      ["videos", "photos", "profiles"].every(
+        (string) => item?.link?.indexOf(string) === -1
+      )
     )
     .map((item) => {
       return {
