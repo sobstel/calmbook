@@ -1,20 +1,18 @@
+import { useSpring, animated } from "react-spring";
 import Post from "./Post";
 import Logo from "./Logo";
 import Spinner from "./Spinner";
-import { useSpring, animated } from "react-spring";
 
 type Props = { page: Page };
 
 function Skeleton() {
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center">
-        <div
-          className="flex items-center justify-center bg-gray-300 w-16 h-16 my-2"
-          style={{ borderRadius: 32 }}
-        >
-          <Spinner />
-        </div>
+    <div className="flex flex-col items-center justify-center">
+      <div
+        className="flex items-center justify-center bg-gray-300 w-16 h-16 my-2"
+        style={{ borderRadius: 32 }}
+      >
+        <Spinner />
       </div>
     </div>
   );
