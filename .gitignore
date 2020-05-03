@@ -1,12 +1,14 @@
-node_modules
-.now
+# app
+.env
 
 # misc
+node_modules
 .DS_Store
 .env*
 .vscode
 yarn-error.log
 
-# next.js
+# now/next.js
+.now
 .next/*
 out/*
