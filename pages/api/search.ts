@@ -7,16 +7,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  // TODO: make it array[] bulletproof
-  const query = req.query.q as string;
+  const q = Array.isArray(req.query.q) ? req.query.q[0] : req.query.q;
 
   const customsearch = google.customsearch("v1");
-
   const response = await customsearch.cse.list({
-    cx: process.env.GOOGLE_SEARCH_CX,
-    q: query,
     auth: process.env.GOOGLE_SEARCH_API_KEY,
+    cx: process.env.GOOGLE_SEARCH_CX,
+    q: `${q} page`,
+    fields: "searchInformation,items(title,link)",
+    quotaUser: req.headers["x-forwarded-for"] as string,
   });
+  const data = response.data;
 
-  res.status(200).json({ results: response.data });
+  res.status(200).json(data);
 };
