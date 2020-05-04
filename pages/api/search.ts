@@ -6,6 +6,7 @@ function fetchTitle(item: cse.Schema$Result): string {
   if (!title) return "";
 
   title = title.replace(" - Home | Facebook", "");
+  title = title.replace(" | Facebook", "");
 
   return title;
 }
@@ -64,5 +65,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         array.findIndex((_item) => _item.slug === item.slug) === i
     );
 
+  res.setHeader("Cache-Control", "maxage=3600, s-maxage=86400");
   res.status(200).json(results || []);
 };

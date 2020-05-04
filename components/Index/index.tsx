@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 import Logo from "../Logo";
 import SearchInput from "./SearchInput";
 import FadeIn from "../FadeIn";
@@ -16,12 +17,10 @@ export default function Index({}: Props) {
     setLoading(true);
     const { data } = await axios.get(`/api/search?q=${query}`);
     // TODO: setError on error
+    // TODO: setError if zero results
     setResults(data);
     setLoading(false);
   };
-
-  // TODO: on mount, read from query string
-  // TODO: results
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -34,11 +33,15 @@ export default function Index({}: Props) {
         />
       </FadeIn>
 
-      {results.map((result) => (
-        <div key={result.slug}>
-          {result.title} / {result.slug}
+      {results.length > 0 && (
+        <div className="my-8">
+          {results.map(({ title, slug }) => (
+            <Link key={slug} href="/[slug]" as={`/${slug}`}>
+              <a className="block text-blue-600 hover:text-blue-300">{title}</a>
+            </Link>
+          ))}
         </div>
-      ))}
+      )}
 
       <FadeIn delay={200}>
         <div className="mt-12">
@@ -48,3 +51,5 @@ export default function Index({}: Props) {
     </div>
   );
 }
+
+// TODO: getServerSideProps -> read from query string

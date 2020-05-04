@@ -1,5 +1,13 @@
+import Head from "next/head";
 import Index from "components/Index";
 
 export default function CalmbookIndex() {
-  return <Index />;
+  return (
+    <div>
+      <Head>
+        <title>calmbook</title>
+      </Head>
+      <Index />
+    </div>
+  );
 }
