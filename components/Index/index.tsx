@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Logo from "../Logo";
 import SearchInput from "./SearchInput";
 import FadeIn from "../FadeIn";
@@ -8,15 +9,15 @@ type Props = {};
 export default function Index({}: Props) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [results, setResults] = useState([]);
+  const [results, setResults] = useState<{ title: string; slug: string }[]>([]);
 
   const onChange = (value: string) => setQuery(value);
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setLoading(true);
-    // TODO: trigger query (with timeout)
-    // TODO: setResults on success
+    const { data } = await axios.get(`/api/search?q=${query}`);
     // TODO: setError on error
-    setTimeout(() => setLoading(false), 2000);
+    setResults(data);
+    setLoading(false);
   };
 
   // TODO: on mount, read from query string
@@ -32,6 +33,12 @@ export default function Index({}: Props) {
           onSubmit={onSubmit}
         />
       </FadeIn>
+
+      {results.map((result) => (
+        <div key={result.slug}>
+          {result.title} / {result.slug}
+        </div>
+      ))}
 
       <FadeIn delay={200}>
         <div className="mt-12">
