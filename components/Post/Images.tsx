@@ -13,7 +13,7 @@ export default function Images({ page, post }: Props) {
           return (
             <img
               key={key}
-              className="max-w-full min-w-full h-auto inline-block"
+              className="max-w-full object-contain h-auto inline-block "
               src={image}
               alt=""
               loading="lazy"
@@ -24,7 +24,7 @@ export default function Images({ page, post }: Props) {
           return (
             <div key={key} className="v relative">
               <img
-                className="max-w-full min-w-full h-auto inline-block cursor-pointer"
+                className="max-w-full object-contain h-auto inline-block cursor-pointer"
                 data-link={`/${page.url}/videos/${post.id}`}
                 src={post.poster}
                 alt=""
