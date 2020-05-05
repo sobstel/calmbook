@@ -1,10 +1,8 @@
 /* eslint-disable */
 module.exports = {
   purge: [
-    './src/**/*.ts',
-    './src/**/*.tsx',
-    './src/**/*.js',
-    './src/**/*.jsx',
+    './components/**/*.tsx',
+    './pages/**/*.tsx',
   ],
   theme: {
     extend: {
