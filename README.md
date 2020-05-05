@@ -1,19 +1,16 @@
 # calmbook
 
-> Facebook pages without distractions
-
 ## Dev
 
 Local devlopment: `yarn now dev`
 
-Built with Typescript, Next.js, Tailwind CSS. Powered by Zeit (Now).
+Built with TypeScript, Next.js, Tailwind CSS. Powered by Vercel.
 
 ## Rules
 
-- One and only one page
-- No distractions like comments, likes, infinity pools, etc
+- No distractions like comments, likes, infinity pools, pagination, etc
 
 ## Sample pages
 
-- <https://calmbook.sobstel.now.sh/TurismoArgentina>
-- <https://calmbook.sobstel.now.sh/gorceultratrail>
+- <https://calmbook.now.sh/TurismoArgentina>
+- <https://calmbook.now.sh/gorceultratrail>
