@@ -7,10 +7,6 @@ import FadeIn from "../FadeIn";
 
 export type Result = { title: string; slug: string };
 
-export async function fetchData(query: string): Promise<Result[]> {
-  return await axios.get(`/api/search?q=${query.toLowerCase()}`);
-}
-
 export type Props = { initialQuery: string; initialResults: Result[] };
 
 export default function Index({ initialQuery, initialResults }: Props) {
@@ -28,7 +24,7 @@ export default function Index({ initialQuery, initialResults }: Props) {
 
     setLoading(true);
     try {
-      const data = await fetchData(query);
+      const { data } = await axios.get(`/api/search?q=${query.toLowerCase()}`);
       if (!data || data.length === 0) setErrorMessage("Nothing found");
       setResults(data || []);
     } catch (e) {
