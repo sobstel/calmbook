@@ -15,6 +15,11 @@ export default function Index({}: Props) {
 
   const onChange = (value: string) => setQuery(value);
   const onSubmit = async () => {
+    if (query.length < 4) {
+      setErrorMessage("Min length: 4");
+      return;
+    }
+
     setLoading(true);
     try {
       const { data } = await axios.get(`/api/search?q=${query.toLowerCase()}`);
@@ -39,12 +44,12 @@ export default function Index({}: Props) {
 
       {errorMessage && (
         <FadeIn duration={500}>
-          <div className="my-4 text-orange-700 text-center">{errorMessage}</div>
+          <div className="my-4 text-orange-600 text-center">{errorMessage}</div>
         </FadeIn>
       )}
 
       {results.length > 0 && (
-        <div className="my-8">
+        <div className="my-8 max-w-xs">
           {results.map(({ title, slug }) => (
             <Link key={slug} href="/[slug]" as={`/${slug}`}>
               <a className="block text-blue-600 hover:text-blue-300">{title}</a>
