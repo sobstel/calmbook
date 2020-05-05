@@ -6,7 +6,7 @@ export default function Images({ page, post }: Props) {
   if (!post.images || post.images.length === 0) return null;
 
   return (
-    <div className="my-2">
+    <div className="my-4">
       {post.images.map((image, i) => {
         const key = [image, i].join("-");
         if (!post.poster) {

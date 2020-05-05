@@ -53,9 +53,14 @@ export default function Index({ initialQuery, initialResults }: Props) {
       {results.length > 0 && (
         <div className="my-8 max-w-xs">
           {results.map(({ title, slug }) => (
-            <Link key={slug} href="/[slug]" as={`/${slug}`}>
-              <a className="block text-blue-600 hover:text-blue-300">{title}</a>
-            </Link>
+            <div key={slug} className="my-2">
+              <Link href="/[slug]" as={`/${slug}`}>
+                <a className="block text-blue-600 hover:text-blue-300">
+                  {title}
+                </a>
+              </Link>
+              <p className="text-xs">{slug}</p>
+            </div>
           ))}
         </div>
       )}
