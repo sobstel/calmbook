@@ -16,6 +16,7 @@ export default function Images({ page, post }: Props) {
               className="max-w-full min-w-full h-auto inline-block"
               src={image}
               alt=""
+              loading="lazy"
             />
           );
         }
@@ -28,6 +29,7 @@ export default function Images({ page, post }: Props) {
                 src={post.poster}
                 alt=""
                 onClick={(event) => embedVideo(event.target)}
+                loading="lazy"
               />
             </div>
           );
