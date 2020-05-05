@@ -46,6 +46,15 @@ export default function Page({ page }: Props) {
       </AvatarContainer>
       <FadeIn>
         <h1 className="text-3xl font-medium text-center">{page.name}</h1>
+        <p className="mt-2 text-blue-600 text-xs text-center">
+          <a
+            href={`https://www.facebook.com/${page.url}/posts`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            facebook
+          </a>
+        </p>
       </FadeIn>
       <FadeIn delay={200}>
         <div className="my-8 divide-y divide-gray-300 border-t border-b border-gray-300">
