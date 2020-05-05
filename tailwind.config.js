@@ -1,5 +1,9 @@
 /* eslint-disable */
 module.exports = {
+  purge: [
+    './components/**/*.tsx',
+    './pages/**/*.tsx',
+  ],
   theme: {
     extend: {
       borderRadius: {
@@ -13,7 +17,6 @@ module.exports = {
       layout:
         "Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Avenir,PingFang SC,Helvetica Neue,Helvetica",
     },
-
     spinner: (theme) => ({
       default: {
         color: "#666",
