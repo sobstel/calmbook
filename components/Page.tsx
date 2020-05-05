@@ -1,8 +1,8 @@
+import { useState } from "react";
+import Link from "next/link";
 import Post from "./Post";
-import Logo from "./Logo";
 import Spinner from "./Spinner";
 import FadeIn from "./FadeIn";
-import { useState } from "react";
 
 type Props = { page: Page };
 
@@ -47,7 +47,12 @@ export default function Page({ page }: Props) {
       <FadeIn>
         <h1 className="text-3xl font-medium text-center">{page.name}</h1>
         <p className="mt-2 text-blue-600 text-xs text-center">
+          <Link key="home" href="/">
+            <a>home</a>
+          </Link>
+          {" • "}
           <a
+            key="fb"
             href={`https://www.facebook.com/${page.url}/posts`}
             target="_blank"
             rel="noopener noreferrer"
@@ -65,7 +70,6 @@ export default function Page({ page }: Props) {
           ))}
         </div>
       </FadeIn>
-      <Logo />
     </div>
   );
 }

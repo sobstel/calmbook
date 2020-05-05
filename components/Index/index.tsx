@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Logo from "../Logo";
 import SearchInput from "./SearchInput";
 import FadeIn from "../FadeIn";
 
@@ -64,13 +63,6 @@ export default function Index({ initialQuery, initialResults }: Props) {
           ))}
         </div>
       )}
-      <FadeIn delay={200}>
-        <div className="mt-12">
-          <Logo />
-        </div>
-      </FadeIn>
     </div>
   );
 }
-
-// TODO: getServerSideProps -> read from query string
