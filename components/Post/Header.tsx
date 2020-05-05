@@ -7,7 +7,7 @@ export default function Header({ post, page }: Props) {
     <div className="flex items-center max-w-full mb-4">
       <img className="w-10 h-10 rounded-full mr-4" src={page.avatar} alt="" />
       <div className="text-sm flex-grow inline-block truncate">
-        <p className="text-gray-900 leading-none font-semibold text-lg truncate">
+        <p className="text-gray-900 leading-none font-medium text-lg truncate">
           {page.name}
         </p>
         <div className="text-gray-600">

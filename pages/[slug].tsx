@@ -1,12 +1,12 @@
 import { NextPageContext } from "next";
 import Head from "next/head";
 import useSWR from "swr";
+import axios from "axios";
 import Page from "components/Page";
-import { json } from "util/request";
 import generateFeed from "util/generateFeed";
+import serverSideUrl from "util/serverSideUrl";
 
 type Props = {
-  // data: { page: Page };
   slug: string;
 };
 
@@ -30,9 +30,9 @@ export async function getServerSideProps({ query, req, res }: NextPageContext) {
   const slug = sanitizeSlug(rawSlug);
 
   if (req && res && rawSlug.slice(-4) === ".xml") {
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const url = `${protocol}://${req.headers.host}${apiPath(slug)}`;
-    const data = await json(url);
+    const { data } = await axios.get(
+      serverSideUrl({ req, path: apiPath(slug) })
+    );
 
     res.setHeader("Content-Type", "text/xml");
     res.write(generateFeed(data.page));
@@ -45,7 +45,9 @@ export async function getServerSideProps({ query, req, res }: NextPageContext) {
 
 export default function CalmbookPage({ slug }: Props) {
   // TODO: handle error too
-  const { data } = useSWR(apiPath(slug));
+  const { data } = useSWR(apiPath(slug), (url) =>
+    axios.get(url).then((res) => res.data)
+  );
   const page = data && data.page;
   return (
     <div>
