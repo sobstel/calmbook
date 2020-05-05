@@ -50,7 +50,7 @@ export default function CalmbookPage({ slug }: Props) {
   useEffect(() => {
     axios
       .get(apiPath(slug))
-      .then((res) => setPage(res.data))
+      .then((res) => setPage(res.data.page))
       .catch((err) => {
         setErrorMessage(err.message);
       });
