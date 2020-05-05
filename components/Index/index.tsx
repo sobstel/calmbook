@@ -5,12 +5,18 @@ import Logo from "../Logo";
 import SearchInput from "./SearchInput";
 import FadeIn from "../FadeIn";
 
-type Props = {};
+export type Result = { title: string; slug: string };
 
-export default function Index({}: Props) {
-  const [query, setQuery] = useState("");
+export async function fetchData(query: string): Promise<Result[]> {
+  return await axios.get(`/api/search?q=${query.toLowerCase()}`);
+}
+
+export type Props = { initialQuery: string; initialResults: Result[] };
+
+export default function Index({ initialQuery, initialResults }: Props) {
+  const [query, setQuery] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<{ title: string; slug: string }[]>([]);
+  const [results, setResults] = useState<Result[]>(initialResults);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onChange = (value: string) => setQuery(value);
@@ -22,7 +28,7 @@ export default function Index({}: Props) {
 
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/search?q=${query.toLowerCase()}`);
+      const data = await fetchData(query);
       if (!data || data.length === 0) setErrorMessage("Nothing found");
       setResults(data || []);
     } catch (e) {

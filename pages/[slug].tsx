@@ -4,9 +4,9 @@ import useSWR from "swr";
 import axios from "axios";
 import Page from "components/Page";
 import generateFeed from "util/generateFeed";
+import serverSideUrl from "util/serverSideUrl";
 
 type Props = {
-  // data: { page: Page };
   slug: string;
 };
 
@@ -30,9 +30,9 @@ export async function getServerSideProps({ query, req, res }: NextPageContext) {
   const slug = sanitizeSlug(rawSlug);
 
   if (req && res && rawSlug.slice(-4) === ".xml") {
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const url = `${protocol}://${req.headers.host}${apiPath(slug)}`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(
+      serverSideUrl({ req, path: apiPath(slug) })
+    );
 
     res.setHeader("Content-Type", "text/xml");
     res.write(generateFeed(data.page));
