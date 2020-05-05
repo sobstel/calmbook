@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { NextPageContext } from "next";
 import Head from "next/head";
-import useSWR from "swr";
 import axios from "axios";
 import Page from "components/Page";
 import generateFeed from "util/generateFeed";
@@ -44,11 +44,18 @@ export async function getServerSideProps({ query, req, res }: NextPageContext) {
 }
 
 export default function CalmbookPage({ slug }: Props) {
-  // TODO: handle error too
-  const { data } = useSWR(apiPath(slug), (url) =>
-    axios.get(url).then((res) => res.data)
-  );
-  const page = data && data.page;
+  const [page, setPage] = useState<Page | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(apiPath(slug))
+      .then((res) => setPage(res.data))
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
+  }, []);
+
   return (
     <div>
       {page && (
@@ -62,7 +69,10 @@ export default function CalmbookPage({ slug }: Props) {
           />
         </Head>
       )}
-      <Page page={page} />
+      {errorMessage && (
+        <div className="my-8 text-orange-600 text-center">{errorMessage}</div>
+      )}
+      {!errorMessage && <Page page={page} />}
     </div>
   );
 }
