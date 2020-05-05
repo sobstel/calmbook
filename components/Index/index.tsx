@@ -11,14 +11,18 @@ export default function Index({}: Props) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<{ title: string; slug: string }[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onChange = (value: string) => setQuery(value);
   const onSubmit = async () => {
     setLoading(true);
-    const { data } = await axios.get(`/api/search?q=${query}`);
-    // TODO: setError on error
-    // TODO: setError if zero results
-    setResults(data);
+    try {
+      const { data } = await axios.get(`/api/search?q=${query.toLowerCase()}`);
+      if (!data || data.length === 0) setErrorMessage("Nothing found");
+      setResults(data || []);
+    } catch (e) {
+      setErrorMessage(e.message);
+    }
     setLoading(false);
   };
 
@@ -33,6 +37,12 @@ export default function Index({}: Props) {
         />
       </FadeIn>
 
+      {errorMessage && (
+        <FadeIn duration={500}>
+          <div className="my-4 text-orange-700 text-center">{errorMessage}</div>
+        </FadeIn>
+      )}
+
       {results.length > 0 && (
         <div className="my-8">
           {results.map(({ title, slug }) => (
@@ -42,7 +52,6 @@ export default function Index({}: Props) {
           ))}
         </div>
       )}
-
       <FadeIn delay={200}>
         <div className="mt-12">
           <Logo />
