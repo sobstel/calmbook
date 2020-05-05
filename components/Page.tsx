@@ -4,8 +4,6 @@ import Post from "./Post";
 import Spinner from "./Spinner";
 import FadeIn from "./FadeIn";
 
-type Props = { page: Page };
-
 function AvatarContainer({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-center">
@@ -29,6 +27,8 @@ function AvatarImage({ page }: { page: Page }) {
     />
   );
 }
+
+type Props = { page: Page | null };
 
 export default function Page({ page }: Props) {
   if (!page) {
