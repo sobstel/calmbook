@@ -53,7 +53,13 @@ export default function CalmbookPage({ slug }: Props) {
     <div>
       {page && (
         <Head>
-          <title>{data.page.name}</title>
+          <title>{page.name}</title>
+          <link
+            href={`/${page.url}.xml`}
+            type="application/atom+xml"
+            rel="alternate"
+            title={page.name}
+          />
         </Head>
       )}
       <Page page={page} />
