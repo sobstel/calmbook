@@ -2,12 +2,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Post from "./Post";
 import Spinner from "./Spinner";
-import FadeIn from "./FadeIn";
+import FadeIn, { TailwindNumber } from "./FadeIn";
 
 function AvatarContainer({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-center">
-      <div className="flex items-center justify-center bg-gray-400 w-16 h-16 rounded-16 my-2">
+      <div className="flex items-center justify-center bg-gray-400 w-16 h-16 rounded-full my-2">
         {children}
       </div>
     </div>
@@ -61,15 +61,21 @@ export default function Page({ page }: Props) {
           </a>
         </p>
       </FadeIn>
-      <FadeIn delay={200}>
+
+      {page.posts && page.posts.length > 0 && (
         <div className="my-8 divide-y divide-gray-300 border-t border-b border-gray-300">
-          {page.posts.map((post) => (
-            <div key={post.timestamp} className="py-8">
-              <Post post={post} page={page} />
-            </div>
+          {page.posts.map((post, index) => (
+            <FadeIn
+              key={post.timestamp}
+              delay={Math.min(index * 100, 1000) as TailwindNumber}
+            >
+              <div className="py-8">
+                <Post post={post} page={page} />
+              </div>
+            </FadeIn>
           ))}
         </div>
-      </FadeIn>
+      )}
     </div>
   );
 }
