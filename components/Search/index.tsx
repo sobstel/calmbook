@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Link from "next/link";
-import SearchInput from "./SearchInput";
+import * as idb from "idb-keyval";
 import FadeIn from "../FadeIn";
+import SearchInput from "./SearchInput";
+import SearchResults from "./SearchResults";
 
 export type Result = { title: string; slug: string };
 
@@ -32,6 +33,24 @@ export default function Index({ initialQuery, initialResults }: Props) {
     setLoading(false);
   };
 
+  useEffect(() => {
+    async function readSavedData() {
+      idb.get("query").then((savedQuery) => {
+        if (savedQuery) setQuery(savedQuery as string);
+      });
+      idb.get("results").then((savedResults) => {
+        if (savedResults) setResults(savedResults as Result[]);
+      });
+    }
+    if (!query && results.length === 0) readSavedData();
+  }, []);
+
+  useEffect(() => {
+    idb.set("query", query);
+    idb.set("results", results);
+    if (query) window.history.pushState("", "", `?q=${query}`);
+  }, [results]);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <FadeIn>
@@ -49,20 +68,7 @@ export default function Index({ initialQuery, initialResults }: Props) {
         </FadeIn>
       )}
 
-      {results.length > 0 && (
-        <div className="my-8 max-w-xs">
-          {results.map(({ title, slug }) => (
-            <div key={slug} className="my-2">
-              <Link href="/[slug]" as={`/${slug}`}>
-                <a className="block text-blue-600 hover:text-blue-300">
-                  {title}
-                </a>
-              </Link>
-              <p className="text-xs">{slug}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      <SearchResults results={results} />
     </div>
   );
 }

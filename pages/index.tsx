@@ -1,7 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import { NextPageContext } from "next";
-import Index, { Result, Props } from "components/Index";
+import Search, { Result, Props } from "components/Search";
 import serverSideUrl from "util/serverSideUrl";
 
 export async function getServerSideProps({ req, query }: NextPageContext) {
@@ -31,7 +31,7 @@ export default function CalmbookIndex(props: Props) {
       <Head>
         <title>calmbook</title>
       </Head>
-      <Index {...props} />
+      <Search {...props} />
     </div>
   );
 }
