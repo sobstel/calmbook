@@ -23,6 +23,7 @@ export default function Search({ initialQuery, initialResults }: Props) {
     }
 
     setLoading(true);
+    setResults([]);
     try {
       const { data } = await axios.get(`/api/search?q=${query.toLowerCase()}`);
       if (!data || data.length === 0) setErrorMessage("Nothing found");

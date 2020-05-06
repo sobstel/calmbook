@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
 
-type TailwindAmount = 75 | 100 | 150 | 200 | 300 | 500 | 700 | 1000;
+export type TailwindNumber =
+  | 0
+  | 75
+  | 100
+  | 150
+  | 200
+  | 300
+  | 400
+  | 500
+  | 600
+  | 700
+  | 800
+  | 900
+  | 1000;
 
 type Props = {
   children: React.ReactNode;
-  duration?: TailwindAmount;
-  delay?: 0 | TailwindAmount;
+  duration?: TailwindNumber;
+  delay?: TailwindNumber;
 };
 
 export default function FadeIn({
@@ -15,7 +28,9 @@ export default function FadeIn({
 }: Props) {
   const [opacity, setOpacity] = useState(0);
 
-  useEffect(() => setOpacity(100), []);
+  useEffect(() => {
+    requestAnimationFrame(() => setOpacity(100));
+  }, []);
 
   return (
     <div
