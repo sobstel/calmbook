@@ -1,10 +1,16 @@
-import { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import withRedux, { ReduxWrapperAppProps } from "next-redux-wrapper";
 import Head from "next/head";
 import Layout from "components/Layout";
+import { makeStore, RootState } from "store";
 
 import "style.css";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+  store,
+}: ReduxWrapperAppProps<RootState>) {
   return (
     <div>
       <Head>
@@ -13,9 +19,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </div>
   );
 }
+
+export default withRedux(makeStore)(MyApp);

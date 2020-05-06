@@ -48,12 +48,15 @@ export default function CalmbookPage({ slug }: Props) {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    axios
-      .get(apiPath(slug))
-      .then((res) => setPage(res.data.page))
-      .catch((err) => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get(apiPath(slug));
+        setPage(data.page);
+      } catch (err) {
         setErrorMessage(err.message);
-      });
+      }
+    }
+    fetchData();
   }, []);
 
   return (
