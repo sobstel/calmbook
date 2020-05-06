@@ -9,7 +9,7 @@ export type Result = { title: string; slug: string };
 
 export type Props = { initialQuery: string; initialResults: Result[] };
 
-export default function Index({ initialQuery, initialResults }: Props) {
+export default function Search({ initialQuery, initialResults }: Props) {
   const [query, setQuery] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Result[]>(initialResults);
@@ -34,15 +34,13 @@ export default function Index({ initialQuery, initialResults }: Props) {
   };
 
   useEffect(() => {
-    async function readSavedData() {
-      idb.get("query").then((savedQuery) => {
-        if (savedQuery) setQuery(savedQuery as string);
-      });
-      idb.get("results").then((savedResults) => {
-        if (savedResults) setResults(savedResults as Result[]);
-      });
-    }
-    if (!query && results.length === 0) readSavedData();
+    if (query || results.length > 0) return;
+    idb.get("query").then((savedQuery) => {
+      if (savedQuery) setQuery(savedQuery as string);
+    });
+    idb.get("results").then((savedResults) => {
+      if (savedResults) setResults(savedResults as Result[]);
+    });
   }, []);
 
   useEffect(() => {
