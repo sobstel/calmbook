@@ -7,7 +7,7 @@ import FadeIn, { TailwindNumber } from "./FadeIn";
 function AvatarContainer({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-center">
-      <div className="flex items-center justify-center bg-gray-400 w-16 h-16 rounded-16 my-2">
+      <div className="flex items-center justify-center bg-gray-400 w-16 h-16 rounded-full my-2">
         {children}
       </div>
     </div>
