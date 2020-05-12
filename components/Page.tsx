@@ -40,7 +40,7 @@ export default function Page({ page }: Props) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div>
       <AvatarContainer>
         <AvatarImage page={page} />
       </AvatarContainer>
@@ -69,7 +69,7 @@ export default function Page({ page }: Props) {
               key={post.timestamp}
               delay={Math.min(index * 100, 1000) as TailwindNumber}
             >
-              <div className="py-8">
+              <div className="py-8 overflow-hidden">
                 <Post post={post} page={page} />
               </div>
             </FadeIn>
